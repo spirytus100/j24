@@ -40,11 +40,11 @@ function get_budget($conn) {
 
     echo "<table class='table'>
             <tr>
-                <th>kategoria</th>
-                <th>budżet</th>
-                <th>koszt</th>
-                <th>zostało</th>
-                <th>komentarze</th>
+                <th>Kategoria</th>
+                <th>Budżet</th>
+                <th>Koszt</th>
+                <th>Zostało</th>
+                <th>Komentarze</th>
             </tr>";
 
     while ($row = $result->fetch_assoc()) {
@@ -63,7 +63,7 @@ function get_budget($conn) {
 
     $left = $sum_budget-floatval($sum_real);
     echo "<tr>";
-    echo "<td><b>podsumowanie</b></td>";
+    echo "<td><b>Podsumowanie</b></td>";
     echo "<td><b>".$sum_budget."</b></td>";
     echo "<td><b>".$sum_real."</b></td>";
     echo "<td><b>".$left."</b></td>";

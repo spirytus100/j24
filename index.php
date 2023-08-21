@@ -4,6 +4,7 @@ session_start();
 include $_SERVER["DOCUMENT_ROOT"] . "/includes/config.php";
 include $_SERVER["DOCUMENT_ROOT"] . "/includes/functions.php";
 include $_SERVER["DOCUMENT_ROOT"] . "/includes/html_functions.php";
+include $_SERVER["DOCUMENT_ROOT"] . "/includes/dashboard_functions.php";
 
 
 $request_path = ltrim($_SERVER["REQUEST_URI"], "/");
@@ -73,6 +74,10 @@ if ($request_path == "") {
     # path '/movies/new'
     } else if (preg_match("#^movies/new/?$#", $request_path)) {
         include "templates/new_movie.php";
+
+    # path '/writing/new'
+    } else if (preg_match("#^writing/new/?$#", $request_path)) {
+        include "templates/new_writing.php";
 
     } else {
         http_response_code(404);

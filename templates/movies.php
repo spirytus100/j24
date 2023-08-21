@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="pl">
+<html class="h-100" lang="pl">
   <head>
     <?php display_head("Filmy"); ?>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"
@@ -15,7 +15,7 @@
          });
     </script>
   </head>
-  <body>
+<body class="d-flex flex-column h-100">
 <?php include $_SERVER["DOCUMENT_ROOT"] . "/includes/login_redirect.php"; ?>   
 <?php display_header(); ?>
 

@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="pl">
+<html class="h-100" lang="pl">
   <head>
     <?php display_head("Nowy wydatek"); ?>
   </head>
-  <body>
+<body class="d-flex flex-column h-100">
 <?php include $_SERVER["DOCUMENT_ROOT"] . "/includes/login_redirect.php"; ?>
 <?php display_header(); ?>
 

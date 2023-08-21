@@ -17,7 +17,8 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
     $stmt->bind_param("sddd", $month_year, $budget, $real_cost, $overspending);
     $stmt->execute();
 
-    $conn->query("UPDATE budget SET budget_cost = 0.00, real_cost = 0.00");
+    $stmt = $conn->prepare("UPDATE budget SET budget_cost = 0.00, real_cost = 0.00, comments = NULL");
+    $stmt->execute();
     header("Location: /budget/new");
 
 }

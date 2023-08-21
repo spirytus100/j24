@@ -1,18 +1,18 @@
 <!doctype html>
-<html lang="pl">
+<html class="h-100" lang="pl">
   <head>
     <?php display_head("Budżet"); ?>
     <script>
         function myConfirm() {
             let answer = window.confirm("Budżet zostanie zresetowany. Czy chcesz kontynuować?");
             if (answer) {
-                window.location = "/budget/new";
+                window.location = "/forms/reset_budget.php";
             }
         }
     </script>
 
   </head>
-  <body>
+<body class="d-flex flex-column h-100">
 <?php include $_SERVER["DOCUMENT_ROOT"] . "/includes/login_redirect.php"; ?>  
 <?php display_header(); ?>
 

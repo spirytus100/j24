@@ -1,6 +1,6 @@
 <?php
 include $_SERVER["DOCUMENT_ROOT"] . "/includes/config.php";
-$ph = password_hash("legia", PASSWORD_DEFAULT);
-$conn->query("INSERT INTO users (username, password, email) VALUES ('j', '$ph', 'jw@abc.pl')");
+$ph = password_hash("", PASSWORD_DEFAULT);
+$conn->query("INSERT INTO users (username, password, email) VALUES ('j', '$ph', 'serjusly@protonmail.com')");
 $conn->close();
 ?>
