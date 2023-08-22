@@ -75,9 +75,21 @@ if ($request_path == "") {
     } else if (preg_match("#^movies/new/?$#", $request_path)) {
         include "templates/new_movie.php";
 
+    # path '/movies/edit/1'
+    } else if (preg_match("#^movies/edit/[0-9]*$#", $request_path)) {
+        include "templates/edit_movie.php";
+
     # path '/writing/new'
     } else if (preg_match("#^writing/new/?$#", $request_path)) {
         include "templates/new_writing.php";
+
+    # path '/cash/'
+    } else if (preg_match("#^cash/?$#", $request_path)) {
+        include "templates/cash.php";
+
+    # path '/cash/edit/1'
+    } else if (preg_match("#^cash/edit/[0-9]*$#", $request_path)) {
+        include "templates/edit_cash.php";
 
     } else {
         http_response_code(404);

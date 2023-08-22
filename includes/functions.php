@@ -84,12 +84,7 @@ function new_movie_form($conn) {
         <label class='form-label' for='genre'>Gatunek</label><br>
         <input class='form-control' list='genres' name='genre' required>
     <datalist id='genres'>";
-
-  while ($row = $result->fetch_assoc()) {
-    $category = $row["name"];
-    echo "<option value='$category'>$category</option>";
-  }
-
+        get_movies_genres($conn);
   echo "</datalist><br>
   <div class='form-check mb-4'>
         <input class='form-check-input' type='checkbox' id='movie-watched' name='movie_watched' value='true' onclick='displayWatchedField()'>
@@ -307,7 +302,7 @@ function display_movies_table($conn) {
 
         echo "<tr>";
         echo "<td>" . $row["id"] . "</td>";
-        echo "<td>" . $row["title"] . "</td>";
+        echo "<td><a href='/movies/edit/" . $row["id"] . "'>" . $row["title"] . "</a></td>";
         echo "<td>" . $row["prod_year"] . "</td>";
         echo "<td>" . $row["genre"] . "</td>";
         echo "<td>" . $watched . "</td>";
@@ -318,5 +313,54 @@ function display_movies_table($conn) {
     echo "</tbody>";
     echo "</table>";
 
+}
+
+function get_movies_genres($conn) {
+    $result = $conn->query("SELECT name FROM movies_genres");
+    while ($row = $result->fetch_assoc()) {
+        $category = $row["name"];
+        echo "<option value='$category'>$category</option>";
+    }
+}
+
+function get_movie_data($conn, $id) {
+    $stmt = $conn->prepare("SELECT * FROM movies WHERE id = ?");
+    $stmt->bind_param("i", $id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $movie_data = $result->fetch_assoc();
+    return $movie_data;
+}
+
+function get_cash_data($conn, $id) {
+    $stmt = $conn->prepare("SELECT * FROM cash WHERE id = ?");
+    $stmt->bind_param("i", $id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $cash_data = $result->fetch_assoc();
+    return $cash_data;
+}
+
+function display_cash_table($conn) {
+    echo "<table class='table'>
+        <thead>
+        <tr>
+        <th scope='col' style='color: black'>Id</th>
+        <th scope='col' style='color: black'>Nazwa</th>
+        <th scope='col' style='color: black'>Wartość</th>
+        </tr>
+        </thead>";
+
+    $result = $conn->query("SELECT * FROM cash");
+    echo "<tbody>";
+    while ($row = $result->fetch_assoc()) {
+        echo "<tr>";
+        echo "<td>" . $row["id"] . "</td>";
+        echo "<td><a href='/cash/edit/" . $row["id"] . "'>" . $row["name"] . "</a></td>";
+        echo "<td>" . $row["value"] . "</td>";
+        echo "</tr>";
+    }
+    echo "</tbody>";
+    echo "</table>";
 }
 ?>

@@ -25,7 +25,7 @@ function display_header() {
 }
 
 function display_footer() {
-  echo "<div class='footer container-fluid mt-auto text-light text-center bg-dark p-3'>
+  echo "<div class='footer container-fluid mt-auto text-light text-center bg-dark p-3 mt-5'>
   <p>Made by j24</p>
 </div>";
 }
@@ -46,6 +46,7 @@ function display_sidebar() {
           <li><a class='dropdown-item' href='/expenses/'>Wydatki</a></li>
           <li><a class='dropdown-item' href='/income/'>Dochody</a></li>
           <li><a class='dropdown-item' href='/assets/'>Inwestycje</a></li>
+          <li><a class='dropdown-item' href='/cash/'>Gotówka</a></li>
           <li><a class='dropdown-item' href='/movies/'>Filmy</a></li>
           <li><a class='dropdown-item' href='/books/'>Książki</a></li>
         </ul>

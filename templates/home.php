@@ -43,7 +43,7 @@
         <div class="col">
           <div class="bg-warning p-3 text-center text-dark shadow">
             <h5>Majątek</h5>
-            <h2><b><?php echo get_total_wealth($conn); ?> zł</b></h2>
+            <h2><b><?php echo format_money(get_total_wealth($conn)); ?> zł</b></h2>
           </div>
         </div>
         <div class="col">
@@ -58,13 +58,13 @@
         <div class="col">
           <div class="bg-info p-3 text-center text-dark shadow">
               <h5>Dochody</h5>
-              <h2><b><?php echo income_last_month($conn); ?> zł</b></h2>
+              <h2><b><?php echo format_money(income_last_month($conn)); ?> zł</b></h2>
             </div>
           </div>
         <div class="col">
           <div class="bg-info p-3 text-center text-dark shadow">
               <h5>Wydatki</h5>
-              <h2><b><?php echo last_month_spending($conn); ?> zł</b></h2>
+              <h2><b><?php echo format_money(last_month_spending($conn)); ?> zł</b></h2>
             </div>
           </div>
         </div>

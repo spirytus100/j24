@@ -1,5 +1,23 @@
 <?php
 
+function format_money($number) {
+    $money_str = (string) $number;
+
+    if ($number < 1000) {
+        return $money_str;
+    } else if ($number >= 1000 && $number < 10000) {
+        $first_part = substr($money_str, 0, 1);
+    } else if ($number >= 10000 && $number < 100000) {
+        $first_part = substr($money_str, 0, 2);
+    } else if ($number >= 100000 && $number < 1000000) {
+        $first_part = substr($money_str, 0, 3);
+    }
+   
+    $last_part = substr($money_str, -6, 6);
+    $last_part = str_replace(".", ",", $last_part);
+    return "$first_part $last_part";
+}
+
 function get_total_writing($conn) {
     $result = $conn->query("SELECT FLOOR(SUM(writing_time)/60/60) FROM writing");
     $writing_time = $result->fetch_row();
