@@ -10,11 +10,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $expense_date = $_POST["expense_date"];
 
     $stmt = $conn->prepare("INSERT INTO expenses (item, category, price, expense_date) VALUES (?, ?, ?, ?)");
-    $stmt->bind_param("sids", $item, $category, $price, $expense_date);
+    $stmt->bind_param("ssds", $item, $category, $price, $expense_date);
     $result = $stmt->execute();
 
-    $stmt = $conn->prepare("UPDATE budget SET real_cost = real_cost + ? WHERE category_id = ?");
-    $stmt->bind_param("di", $price, $category_id);
+    $stmt = $conn->prepare("UPDATE budget SET real_cost = real_cost + ? WHERE category = ?");
+    $stmt->bind_param("ds", $price, $category);
     $result = $stmt->execute();
 
     $conn->close();

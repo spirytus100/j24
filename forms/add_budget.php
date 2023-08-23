@@ -5,7 +5,7 @@ include $_SERVER["DOCUMENT_ROOT"]."/includes/config.php";
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     unset($_POST["type"]);
     foreach ($_POST as $key=>$val) {
-        $sql = "UPDATE budget SET budget_cost = '$val' WHERE category_id = $key";
+        $sql = "UPDATE budget SET budget_cost = '$val' WHERE category = '$key'";
         $conn->query($sql);
     }
     header("Location: /budget/");

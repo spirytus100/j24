@@ -26,12 +26,7 @@ function new_budget_form($conn) {
 }
 
 function get_budget($conn) {
-    $sql = "SELECT
-    ec.name AS name,
-    b.budget_cost AS budget_cost,
-    b.real_cost AS real_cost,
-    b.comments AS comments
-    FROM budget b JOIN expense_categories ec ON b.category_id=ec.id";
+    $sql = "SELECT * FROM budget";
 
     $result = $conn->query($sql);
 
@@ -53,7 +48,7 @@ function get_budget($conn) {
         $left = $row["budget_cost"]-floatval($row["real_cost"]);
 
         echo "<tr>";
-        echo "<td>".$row["name"]."</td>";
+        echo "<td>".$row["category"]."</td>";
         echo "<td>".$row["budget_cost"]."</td>";
         echo "<td>".floatval($row["real_cost"])."</td>";
         echo "<td>".$left."</td>";
