@@ -4,7 +4,7 @@ function format_money($number) {
     $money_str = (string) $number;
 
     if ($number < 1000) {
-        return $money_str;
+        return str_replace(".", ",", $money_str);
     } else if ($number >= 1000 && $number < 10000) {
         $first_part = substr($money_str, 0, 1);
     } else if ($number >= 10000 && $number < 100000) {
