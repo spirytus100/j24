@@ -358,4 +358,32 @@ function display_cash_table($conn) {
     echo "</tbody>";
     echo "</table>";
 }
+
+function get_task_categories($conn) {
+    $result = $conn->query("SELECT name FROM task_categories");
+    while ($row = $result->fetch_assoc()) {
+        $category = $row["name"];
+        echo "<option value='$category'>$category</option>";
+    }
+}
+
+function get_tasks($conn) {
+    $result = $conn->query("SELECT * FROM tasks WHERE YEAR(scheduled_time) = YEAR(CURRENT_DATE) AND finished = 0 ORDER BY scheduled_time");
+    while ($row = $result->fetch_assoc()) {
+        $task_id = $row["id"];
+        $scheduled_time = substr($row["scheduled_time"], 0, 16);
+        $category = $row["category"];
+        $content = $row["content"];
+        echo "<div class='shadow p-3 mt-2 rounded'>
+        <div class='mb-3'>
+            <a href='/../forms/end_task.php?finished=true&id=$task_id'><i class='fa-solid fa-check fa-xl text-success'></i></a>
+            <a href='/../forms/end_task.php?finished=false&id=$task_id'><i class='fa-solid fa-trash fa-xl ms-2 me-2 text-secondary'></i></a>
+            <div class='d-inline bg-dark text-light p-2 rounded'>$scheduled_time</div>
+            <div class='d-inline bg-success text-light p-2 ms-2 rounded'>$category</div>
+        </div>
+        <div>$content</div>
+        </div>";
+    }
+}
+
 ?>

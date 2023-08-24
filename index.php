@@ -91,6 +91,14 @@ if ($request_path == "") {
     } else if (preg_match("#^cash/edit/[0-9]*$#", $request_path)) {
         include "templates/edit_cash.php";
 
+    # path '/tasks/'
+    } else if (preg_match("#^tasks/?$#", $request_path)) {
+        include "templates/tasks.php";
+
+    # path '/tasks/'
+    } else if (preg_match("#^tasks/new/?$#", $request_path)) {
+        include "templates/new_task.php";
+
     } else {
         http_response_code(404);
         die();
