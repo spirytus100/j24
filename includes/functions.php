@@ -422,6 +422,21 @@ function display_task_header($scheduled_time, $headers) {
     return $headers;
 }
 
+function weekday($scheduled_time) {
+    $task_date = substr($scheduled_time, 0, 10);
+    $weekdays = array(
+        1 => "Poniedziałek",
+        2 => "Wtorek",
+        3 => "Środa",
+        4 => "Czwartek",
+        5 => "Piątek",
+        6 => "Sobota",
+        7 => "Niedziela"
+    );
+    return $weekdays[date("w", strtotime($task_date))];
+
+}
+
 function get_tasks($conn) {
     $headers = array(
         "late" => false,
@@ -437,9 +452,16 @@ function get_tasks($conn) {
     $result = $conn->query("SELECT * FROM tasks WHERE YEAR(scheduled_time) = YEAR(CURRENT_DATE) AND finished = 0 ORDER BY scheduled_time");
     while ($row = $result->fetch_assoc()) {
         $task_id = $row["id"];
+
         $scheduled_time = substr($row["scheduled_time"], 0, 16);
+        $format = new IntlDateFormatter("pl_PL", IntlDateFormatter::MEDIUM, IntlDateFormatter::MEDIUM, "Europe/Warsaw", IntlDateFormatter::GREGORIAN);
+        $formatted_task_time = $format->format(strtotime($row["scheduled_time"]));
+        $formatted_task_time = substr($formatted_task_time, 0, strlen($formatted_task_time)-3);
+
         $category = $row["category"];
         $content = $row["content"];
+        $weekday = weekday($scheduled_time);
+
         echo "<div class='mt-3 mb-3'>";
         $headers = display_task_header($scheduled_time, $headers);
         echo "</div>";
@@ -447,7 +469,7 @@ function get_tasks($conn) {
         <div class='mb-3'>
             <a href='/../forms/end_task.php?finished=true&id=$task_id'><i class='fa-solid fa-check fa-xl text-success'></i></a>
             <a href='/../forms/end_task.php?finished=false&id=$task_id'><i class='fa-solid fa-trash fa-xl ms-2 me-2 text-secondary'></i></a>
-            <div class='d-inline bg-dark text-light p-2 rounded'>$scheduled_time</div>
+            <div class='d-inline bg-dark text-light p-2 rounded'>$weekday $formatted_task_time</div>
             <div class='d-inline bg-success text-light p-2 ms-2 rounded'>$category</div>";
         if (date_create() > date_create($scheduled_time)) {
             echo "<i class='fa-solid fa-xl fa-exclamation ms-3 text-danger'></i>";
