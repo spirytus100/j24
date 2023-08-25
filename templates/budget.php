@@ -1,7 +1,7 @@
 <!doctype html>
 <html class="h-100" lang="pl">
   <head>
-    <?php display_head("Budżet"); ?>
+    <?php display_head("Budżet", $elements); ?>
     <script>
         function myConfirm() {
             let answer = window.confirm("Budżet zostanie zresetowany. Czy chcesz kontynuować?");

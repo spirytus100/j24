@@ -1,7 +1,7 @@
 <!doctype html>
 <html class="h-100" lang="pl">
   <head>
-    <?php display_head("Nowy budżet"); ?>
+    <?php display_head("Nowy budżet", $elements); ?>
     <script>
         function sumPositions() {
             const positions = document.getElementsByClassName("form-control budget-input");

@@ -1,7 +1,7 @@
 <!doctype html>
 <html class="h-100" lang="pl">
   <head>
-    <?php display_head("Nowy film"); ?>
+    <?php display_head("Nowy film", $elements); ?>
     <script>
         function displayWatchedField() {
             var checkbox = document.getElementById("movie-watched");

@@ -367,20 +367,92 @@ function get_task_categories($conn) {
     }
 }
 
+function display_task_header($scheduled_time, $headers) {
+    $task_date = substr($scheduled_time, 0, 10);
+    $parsed_date = date_parse_from_format("Y-m-d", $task_date);
+
+    if (date("Y-m-d") > date($task_date)) {
+        if (!$headers["late"]) {
+            echo "<h5>Opóźnione</h5>";
+            $headers["late"] = true;
+        }
+
+    } else if (date("Y-m-d") == date($task_date)) {
+        if (!$headers["today"]) {
+            echo "<h5>Dzisiaj</h5>";
+            $headers["today"] = true;
+        }
+
+    } else if (date("Y-m-d", strtotime("+1 days")) == date($task_date)) {
+        if (!$headers["tomorrow"]) {
+            echo "<h5>Jutro</h5>";
+            $headers["tomorrow"] = true;
+        }
+
+    } else if (date("Y-m-d", strtotime('next monday')) > date($task_date)) {
+        if (!$headers["this_week"]) {
+            echo "<h5>W tym tygodniu</h5>";
+            $headers["this_week"] = true;
+        }
+
+    } else if (date($task_date) >= date("Y-m-d", strtotime('next monday')) && date($task_date) < date("Y-m-d", strtotime("+7 days", strtotime(date("Y-m-d", strtotime('next monday')))))) {
+        if (!$headers["next_week"]) {
+            echo "<h5>W przyszłym tygodniu</h5>";
+            $headers["next_week"] = true;
+        }
+
+    } else if ($parsed_date["month"] == (int)date("m")) {
+        if (!$headers["this_month"]) {
+            echo "<h5>W tym miesiącu</h5>";
+            $headers["this_month"] = true;
+        }
+
+    } else if ($parsed_date["month"] == (int)date("m") + 1) {
+        if (!$headers["next_month"]) {
+            echo "<h5>W przyszłym miesiącu</h5>";
+            $headers["next_month"] = true;
+        }
+
+    } else {
+        if (!$headers["later"]) {
+            echo "<h5>Później</h5>";
+            $headers["later"] = true;
+        }
+    }
+    return $headers;
+}
+
 function get_tasks($conn) {
+    $headers = array(
+        "late" => false,
+        "today" => false,
+        "tomorrow" => false,
+        "this_week" => false,
+        "next_week" => false,
+        "this_month" => false,
+        "next_month" => false,
+        "later" => false
+    );
+
     $result = $conn->query("SELECT * FROM tasks WHERE YEAR(scheduled_time) = YEAR(CURRENT_DATE) AND finished = 0 ORDER BY scheduled_time");
     while ($row = $result->fetch_assoc()) {
         $task_id = $row["id"];
         $scheduled_time = substr($row["scheduled_time"], 0, 16);
         $category = $row["category"];
         $content = $row["content"];
+        echo "<div class='mt-3 mb-3'>";
+        $headers = display_task_header($scheduled_time, $headers);
+        echo "</div>";
         echo "<div class='shadow p-3 mt-2 rounded'>
         <div class='mb-3'>
             <a href='/../forms/end_task.php?finished=true&id=$task_id'><i class='fa-solid fa-check fa-xl text-success'></i></a>
             <a href='/../forms/end_task.php?finished=false&id=$task_id'><i class='fa-solid fa-trash fa-xl ms-2 me-2 text-secondary'></i></a>
             <div class='d-inline bg-dark text-light p-2 rounded'>$scheduled_time</div>
-            <div class='d-inline bg-success text-light p-2 ms-2 rounded'>$category</div>
-        </div>
+            <div class='d-inline bg-success text-light p-2 ms-2 rounded'>$category</div>";
+        if (date_create() > date_create($scheduled_time)) {
+            echo "<i class='fa-solid fa-xl fa-exclamation ms-3 text-danger'></i>";
+        }
+        echo "</div>
         <div>$content</div>
         </div>";
     }

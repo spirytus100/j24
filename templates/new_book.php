@@ -1,7 +1,7 @@
 <!doctype html>
 <html class="h-100" lang="pl">
   <head>
-    <?php display_head("Nowa książka"); ?>
+    <?php display_head("Nowa książka", $elements); ?>
     <script>
         function displayFinishedField() {
             var checkbox = document.getElementById("book-read-check");

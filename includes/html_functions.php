@@ -1,13 +1,23 @@
 <?php
 
-function display_head($title) {
+function display_head($title, $_url_elements) {
     $headers = "<title>$title</title>
     <link href='https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css' rel='stylesheet'>
     <script src='https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js'></script>
     <meta name='viewport' content='width=device-width, initial-scale=1.0'>
-    <meta name='robots' content='noindex, nofollow' />
-    <link rel='icon' href='favicon.ico'>";
-    echo $headers;
+    <meta name='robots' content='noindex, nofollow' />";
+    switch (count($_url_elements)) {
+      case 0:
+        $favicon = "<link rel='icon' href='favicon.ico'>";
+        break;
+      case 1:
+        $favicon = "<link rel='icon' href='/../favicon.ico'>";
+        break;
+      case 2:
+        $favicon = "<link rel='icon' href='/../../favicon.ico'>";
+        break;
+    }
+    echo $headers . $favicon;
 }
 
 function display_header() {
@@ -30,36 +40,49 @@ function display_footer() {
 }
 
 function display_sidebar() {
-  echo "<nav id='sidebarMenu' class='col-md-3 col-lg-2 d-md-block bg-light sidebar'>
-  <div class='position-sticky pt-3'>
-    <ul class='nav flex-column'>
-      <li class='nav-item'>
-        <a class='nav-link active' aria-current='page' href='/'>Panel główny</a>
-      </li>
-      <li class='nav-item'>
-        <a class='nav-link' href='/tasks/'>Zadania</a>
-      </li>
-      <li class='nav-item'>
-        <a class='nav-link' href='/budget/'>Budżet</a>
-      </li>
-      <li class='nav-item'>
-        <a class='nav-link' href='/expenses/'>Wydatki</a>
-      </li>
-      <li class='nav-item'>
-        <a class='nav-link' href='/income/'>Dochody</a>
-      </li>
-      <li class='nav-item'>
-        <a class='nav-link' href='/assets/'>Inwestycje</a>
-      </li>
-      <li class='nav-item'>
-        <a class='nav-link' href='/movies/'>Filmy</a>
-      </li>
-      <li class='nav-item'>
-        <a class='nav-link' href='/books/'>Książki</a>
-      </li>
-    </ul>
-  </div>
-</nav>";
+    echo "<nav id='sidebarMenu' class='col-md-3 col-lg-2 d-md-block bg-light sidebar'>
+    <div class='position-sticky pt-3'>
+      <ul class='nav flex-column'>
+        <li class='nav-item'>
+          <a class='nav-link active' aria-current='page' href='/'>Panel główny</a>
+        </li>
+        <li class='nav-item'>
+          <a class='nav-link' href='/tasks/'>Zadania</a>
+        </li>
+        <li class='nav-item'>
+          <a class='nav-link' href='/budget/'>Budżet</a>
+        </li>
+        <li class='nav-item'>
+          <a class='nav-link' href='/expenses/'>Wydatki</a>
+        </li>
+        <li class='nav-item'>
+          <a class='nav-link' href='/income/'>Dochody</a>
+        </li>
+        <li class='nav-item'>
+          <a class='nav-link' href='/assets/'>Inwestycje</a>
+        </li>
+        <li class='nav-item'>
+          <a class='nav-link' href='/movies/'>Filmy</a>
+        </li>
+        <li class='nav-item'>
+          <a class='nav-link' href='/books/'>Książki</a>
+        </li>
+        <li class='nav-item dropdown'>
+          <a class='nav-link dropdown-toggle' data-bs-toggle='dropdown' href='#' role='button' aria-expanded='false'>Formularze</a>
+          <ul class='dropdown-menu'>
+            <li><a class='dropdown-item' href='/writing/new'>Nowe pisanie</a></li>
+            <li><hr class='dropdown-divider'></li>
+            <li><a class='dropdown-item' href='/tasks/new'>Nowe zadanie</a></li>
+            <li><a class='dropdown-item' href='/expenses/new'>Nowy wydatek</a></li>
+            <li><a class='dropdown-item' href='/income/new'>Nowy dochód</a></li>
+            <li><a class='dropdown-item' href='/movies/new'>Nowy film</a></li>
+            <li><a class='dropdown-item' href='/books/new'>Nowa książka</a></li>
+            <li><a class='dropdown-item' href='/assets/new'>Nowa inwestycja</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </nav>";
 }
 
 function display_new_book_form() {

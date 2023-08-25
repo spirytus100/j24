@@ -1,7 +1,7 @@
 <!doctype html>
 <html class="h-100" lang="pl">
   <head>
-    <?php display_head("Dodaj inwestycję"); ?>
+    <?php display_head("Dodaj inwestycję", $elements); ?>
     <script>
         function displayWatchedField() {
             var checkbox = document.getElementById("movie-watched");

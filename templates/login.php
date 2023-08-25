@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="pl">
 <head>
-<?php display_head("Logowanie"); ?>
+<?php display_head("Logowanie", $elements); ?>
 </head>
 <body>
 <?php
