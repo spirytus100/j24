@@ -165,7 +165,7 @@ function display_assets_table($conn) {
         </tr>
         </thead>";
    
-    $result = $conn->query("SELECT * FROM financial_assets");
+    $result = $conn->query("SELECT * FROM financial_assets WHERE active = 1");
 
     echo "<tbody>";
     while ($row = $result->fetch_assoc()) {
@@ -183,7 +183,7 @@ function display_assets_table($conn) {
 
         echo "<tr>";
         echo "<td>" . $row["id"] . "</td>";
-        echo "<td>" . $row["name"] . "</td>";
+        echo "<td><a href='/assets/edit/" . $row["id"] . "'>" . $row["name"] . "</td>";
         echo "<td>" . $row["category"] . "</td>";
         echo "<td>" . $row["buy_date"] . "</td>";
         echo "<td>" . $row["buy_quantity"] . "</td>";
@@ -336,6 +336,15 @@ function get_cash_data($conn, $id) {
     return $cash_data;
 }
 
+function get_asset_data($conn, $asset_id) {
+    $stmt = $conn->prepare("SELECT * FROM financial_assets WHERE id = ?");
+    $stmt->bind_param("i", $asset_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $asset_data = $result->fetch_assoc();
+    return $asset_data;
+}
+
 function display_cash_table($conn) {
     echo "<table class='table'>
         <thead>
@@ -469,8 +478,9 @@ function get_tasks($conn) {
         <div class='mb-3'>
             <a href='/../forms/end_task.php?finished=true&id=$task_id'><i class='fa-solid fa-check fa-xl text-success'></i></a>
             <a href='/../forms/end_task.php?finished=false&id=$task_id'><i class='fa-solid fa-trash fa-xl ms-2 me-2 text-secondary'></i></a>
-            <div class='d-inline bg-dark text-light p-2 rounded'>$weekday $formatted_task_time</div>
-            <div class='d-inline bg-success text-light p-2 ms-2 rounded'>$category</div>";
+            <span class='d-none d-sm-inline bg-dark text-light p-2 rounded'>$weekday $formatted_task_time</span>
+            <span class='d-sm-none bg-dark text-light p-2 rounded'>$scheduled_time</span>
+            <span class='d-inline bg-success text-light p-2 ms-2 rounded'>$category</span>";
         if (date_create() > date_create($scheduled_time)) {
             echo "<i class='fa-solid fa-xl fa-exclamation ms-3 text-danger'></i>";
         }

@@ -62,6 +62,9 @@ function display_sidebar() {
           <a class='nav-link' href='/assets/'>Inwestycje</a>
         </li>
         <li class='nav-item'>
+          <a class='nav-link' href='/cash/'>Gotówka</a>
+        </li>
+        <li class='nav-item'>
           <a class='nav-link' href='/movies/'>Filmy</a>
         </li>
         <li class='nav-item'>

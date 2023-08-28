@@ -12,6 +12,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $currency = $_POST["currency"];
     if ($_POST["retirement"] == "true") {
         $retirement = true;
+    } else {
+        $retirement = false;
     }
     $active = true;
 

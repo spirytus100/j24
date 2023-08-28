@@ -51,6 +51,10 @@ if ($request_path == "") {
     } else if (preg_match("#^assets/new/?$#", $request_path)) {
         include "templates/new_financial_asset.php";
 
+    # path '/assets/edit/1'
+    } else if (preg_match("#^assets/edit/[0-9]*$#", $request_path)) {
+        include "templates/edit_financial_asset.php";
+
     # path '/income/'
     } else if (preg_match("#^income/?$#", $request_path)) {
         include "templates/income.php";

@@ -26,7 +26,7 @@
           </div>
         </div>
         <div class="col">
-          <div class="p-3 text-center text-black shadow">
+          <div class="p-3 text-center text-black shadow mb-3 mb-sm-0">
             <h5>Przeczytane książki</h5>
             <h2><b><?php echo get_total_read_books($conn); ?></b></h2>
           </div>
