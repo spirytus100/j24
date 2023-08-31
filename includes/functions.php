@@ -20,7 +20,7 @@ function new_budget_form($conn) {
     while ($row = $result->fetch_assoc()) {
         echo "<div class='input-group'>";
         echo "<span class='input-group-text'>".$row["name"]."</span>";
-        echo "<input class='form-control budget-input' id='budget' type='number' name='".$row["id"]."' min='0' max='99999' value='0'>";
+        echo "<input class='form-control budget-input' id='budget' type='number' name='".$row["name"]."' min='0' max='99999' value='0'>";
         echo "</div>";
     }
 }
