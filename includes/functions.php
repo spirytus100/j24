@@ -259,7 +259,7 @@ function display_books_table($conn) {
         echo "<tr>";
         echo "<td>" . $row["id"] . "</td>";
         echo "<td>" . $row["author"] . "</td>";
-        echo "<td>" . $row["title"] . "</td>";
+        echo "<td><a href='/books/edit/" . $row["id"] . "'>" . $row["title"] . "</a></td>";
         echo "<td>" . $row["published"] . "</td>";
         echo "<td>" . $read . "</td>";
         echo "<td>" . $row["finished"] . "</td>";
@@ -318,31 +318,13 @@ function get_movies_genres($conn) {
     }
 }
 
-function get_movie_data($conn, $id) {
-    $stmt = $conn->prepare("SELECT * FROM movies WHERE id = ?");
+function get_record_data($conn, $table, $id) {
+    $stmt = $conn->prepare("SELECT * FROM $table WHERE id = ?");
     $stmt->bind_param("i", $id);
     $stmt->execute();
     $result = $stmt->get_result();
-    $movie_data = $result->fetch_assoc();
-    return $movie_data;
-}
-
-function get_cash_data($conn, $id) {
-    $stmt = $conn->prepare("SELECT * FROM cash WHERE id = ?");
-    $stmt->bind_param("i", $id);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    $cash_data = $result->fetch_assoc();
-    return $cash_data;
-}
-
-function get_asset_data($conn, $asset_id) {
-    $stmt = $conn->prepare("SELECT * FROM financial_assets WHERE id = ?");
-    $stmt->bind_param("i", $asset_id);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    $asset_data = $result->fetch_assoc();
-    return $asset_data;
+    $data = $result->fetch_assoc();
+    return $data;
 }
 
 function display_cash_table($conn) {
@@ -440,7 +422,7 @@ function weekday($scheduled_time) {
         4 => "Czwartek",
         5 => "Piątek",
         6 => "Sobota",
-        7 => "Niedziela"
+        0 => "Niedziela"
     );
     return $weekdays[date("w", strtotime($task_date))];
 
@@ -478,6 +460,7 @@ function get_tasks($conn) {
         <div class='mb-3'>
             <a href='/../forms/end_task.php?finished=true&id=$task_id'><i class='fa-solid fa-check fa-xl text-success'></i></a>
             <a href='/../forms/end_task.php?finished=false&id=$task_id'><i class='fa-solid fa-trash fa-xl ms-2 me-2 text-secondary'></i></a>
+            <a href='edit/$task_id'><i class='fa-solid fa-pen fa-xl ms-1 me-2 text-info'></i></a>
             <span class='d-none d-sm-inline bg-dark text-light p-2 rounded'>$weekday $formatted_task_time</span>
             <span class='d-sm-none bg-dark text-light p-2 rounded'>$scheduled_time</span>
             <span class='d-inline bg-success text-light p-2 ms-2 rounded'>$category</span>";

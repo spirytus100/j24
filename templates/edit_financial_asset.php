@@ -13,7 +13,7 @@
     <?php
     display_sidebar();
     $asset_id = $elements[2];
-    $asset = get_asset_data($conn, $asset_id);
+    $asset = get_record_data($conn, "financial_assets", $asset_id);
     #echo var_dump($asset);
     ?>
 

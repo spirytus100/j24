@@ -26,7 +26,7 @@
     <?php
         display_sidebar();
         $id = $elements[2];
-        $account = get_cash_data($conn, $id);
+        $account = get_record_data($conn, "cash", $id);
     ?>
 
     <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">

@@ -16,6 +16,9 @@ function display_head($title, $_url_elements) {
       case 2:
         $favicon = "<link rel='icon' href='/../../favicon.ico'>";
         break;
+      case 3:
+        $favicon = "<link rel='icon' href='/../../../favicon.ico'>";
+        break;
     }
     echo $headers . $favicon;
 }

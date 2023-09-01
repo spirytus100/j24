@@ -71,6 +71,10 @@ if ($request_path == "") {
     } else if (preg_match("#^books/new/?$#", $request_path)) {
         include "templates/new_book.php";
 
+    # path '/books/edit/1'
+    } else if (preg_match("#^books/edit/[0-9]*$#", $request_path)) {
+        include "templates/edit_book.php";
+
     # path '/movies/'
     } else if (preg_match("#^movies/?$#", $request_path)) {
         include "templates/movies.php";
@@ -102,6 +106,10 @@ if ($request_path == "") {
     # path '/tasks/'
     } else if (preg_match("#^tasks/new/?$#", $request_path)) {
         include "templates/new_task.php";
+
+    # path '/tasks/edit/1'
+    } else if (preg_match("#^tasks/edit/[0-9]*$#", $request_path)) {
+        include "templates/edit_task.php";
 
     } else {
         http_response_code(404);
