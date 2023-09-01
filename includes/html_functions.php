@@ -43,52 +43,94 @@ function display_footer() {
 }
 
 function display_sidebar() {
-    echo "<nav id='sidebarMenu' class='col-md-3 col-lg-2 d-md-block bg-light sidebar'>
-    <div class='position-sticky pt-3'>
-      <ul class='nav flex-column'>
-        <li class='nav-item'>
-          <a class='nav-link active' aria-current='page' href='/'>Panel główny</a>
-        </li>
-        <li class='nav-item'>
-          <a class='nav-link' href='/tasks/'>Zadania</a>
-        </li>
-        <li class='nav-item'>
-          <a class='nav-link' href='/budget/'>Budżet</a>
-        </li>
-        <li class='nav-item'>
-          <a class='nav-link' href='/expenses/'>Wydatki</a>
-        </li>
-        <li class='nav-item'>
-          <a class='nav-link' href='/income/'>Dochody</a>
-        </li>
-        <li class='nav-item'>
-          <a class='nav-link' href='/assets/'>Inwestycje</a>
-        </li>
-        <li class='nav-item'>
-          <a class='nav-link' href='/cash/'>Gotówka</a>
-        </li>
-        <li class='nav-item'>
-          <a class='nav-link' href='/movies/'>Filmy</a>
-        </li>
-        <li class='nav-item'>
-          <a class='nav-link' href='/books/'>Książki</a>
-        </li>
-        <li class='nav-item dropdown'>
-          <a class='nav-link dropdown-toggle' data-bs-toggle='dropdown' href='#' role='button' aria-expanded='false'>Formularze</a>
-          <ul class='dropdown-menu'>
-            <li><a class='dropdown-item' href='/writing/new'>Nowe pisanie</a></li>
-            <li><hr class='dropdown-divider'></li>
-            <li><a class='dropdown-item' href='/tasks/new'>Nowe zadanie</a></li>
-            <li><a class='dropdown-item' href='/expenses/new'>Nowy wydatek</a></li>
-            <li><a class='dropdown-item' href='/income/new'>Nowy dochód</a></li>
-            <li><a class='dropdown-item' href='/movies/new'>Nowy film</a></li>
-            <li><a class='dropdown-item' href='/books/new'>Nowa książka</a></li>
-            <li><a class='dropdown-item' href='/assets/new'>Nowa inwestycja</a></li>
-          </ul>
-        </li>
-      </ul>
-    </div>
+  echo "<nav id='sidebarMenu' class='col-md-3 col-lg-2 d-sm-none bg-light sidebar'>
+  <div class='position-sticky pt-3'>
+    <ul class='nav flex-column'>
+      <li class='nav-item'>
+        <a class='nav-link' aria-current='page' href='/'>Panel główny</a>
+      </li>
+      <li class='nav-item'>
+        <a class='nav-link' href='/tasks/'>Zadania</a>
+      </li>
+      <li class='nav-item'>
+        <a class='nav-link' href='/budget/'>Budżet</a>
+      </li>
+      <li class='nav-item'>
+        <a class='nav-link' href='/expenses/new'>Nowy wydatek</a>
+      </li>
+      <li class='nav-item'>
+        <a class='nav-link' href='/income/new'>Nowy dochód</a>
+      </li>
+      <li class='nav-item'>
+        <a class='nav-link' href='/assets/new'>Nowa inwestycja</a>
+      </li>
+      <li class='nav-item'>
+        <a class='nav-link' href='/cash/'>Gotówka</a>
+      </li>
+      <li class='nav-item'>
+        <a class='nav-link' href='/movies/new'>Nowy film</a>
+      </li>
+      <li class='nav-item'>
+        <a class='nav-link' href='/books/new'>Nowa książka</a>
+      </li>
+    </ul>
+  </div>
   </nav>";
+
+  echo "<nav id='sidebarMenu' class='col-md-3 col-lg-2 d-none d-sm-block bg-light sidebar'>
+  <div class='position-sticky pt-3'>
+    <ul class='nav flex-column'>
+      <li class='nav-item'>
+        <a class='nav-link' aria-current='page' href='/'>Panel główny</a>
+      </li>
+      <li class='nav-item'>
+        <a class='nav-link active' href='/tasks/'>Zadania</a>
+      </li>
+      <li class='nav-item'>
+        <a class='nav-link' href='/budget/'>Budżet</a>
+      </li>
+      <li class='nav-item'>
+        <a class='nav-link' href='/expenses/'>Wydatki</a>
+      </li>
+      <li class='nav-item'>
+        <a class='nav-link' href='/income/'>Dochody</a>
+      </li>
+      <li class='nav-item'>
+        <a class='nav-link' href='/assets/'>Inwestycje</a>
+      </li>
+      <li class='nav-item'>
+        <a class='nav-link' href='/cash/'>Gotówka</a>
+      </li>
+      <li class='nav-item'>
+        <a class='nav-link' href='/movies/'>Filmy</a>
+      </li>
+      <li class='nav-item'>
+        <a class='nav-link' href='/books/'>Książki</a>
+      </li>
+      <li class='nav-item dropdown'>
+        <a class='nav-link dropdown-toggle' data-bs-toggle='dropdown' href='#' role='button' aria-expanded='false'>Formularze</a>
+        <ul class='dropdown-menu'>
+          <li><a class='dropdown-item' href='/writing/new'>Nowe pisanie</a></li>
+          <li><hr class='dropdown-divider'></li>
+          <li><a class='dropdown-item' href='/tasks/new'>Nowe zadanie</a></li>
+          <li><a class='dropdown-item' href='/expenses/new'>Nowy wydatek</a></li>
+          <li><a class='dropdown-item' href='/income/new'>Nowy dochód</a></li>
+          <li><a class='dropdown-item' href='/movies/new'>Nowy film</a></li>
+          <li><a class='dropdown-item' href='/books/new'>Nowa książka</a></li>
+          <li><a class='dropdown-item' href='/assets/new'>Nowa inwestycja</a></li>
+        </ul>
+      </li>
+      <li class='nav-item dropdown'>
+        <a class='nav-link dropdown-toggle' data-bs-toggle='dropdown' href='#' role='button' aria-expanded='false'>Wykresy</a>
+        <ul class='dropdown-menu'>
+          <li><a class='dropdown-item' href='/charts/writing'>Pisanie</a></li>
+          <li><a class='dropdown-item' href='/charts/assets'>Inwestycje</a></li>
+          <li><a class='dropdown-item' href='/charts/savings'>Oszczędności</a></li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</nav>";
 }
 
 function display_new_book_form() {

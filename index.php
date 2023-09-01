@@ -111,6 +111,18 @@ if ($request_path == "") {
     } else if (preg_match("#^tasks/edit/[0-9]*$#", $request_path)) {
         include "templates/edit_task.php";
 
+    # path '/charts/writing'
+    } else if (preg_match("#^charts/writing/?$#", $request_path)) {
+        include "templates/charts/writing.php";
+
+    # path '/charts/assets'
+    } else if (preg_match("#^charts/assets/?$#", $request_path)) {
+        include "templates/charts/assets.php";
+
+    # path '/charts/savings'
+    } else if (preg_match("#^charts/savings/?$#", $request_path)) {
+        include "templates/charts/savings.php";
+
     } else {
         http_response_code(404);
         die();
