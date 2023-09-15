@@ -16,6 +16,42 @@ function writing_data($conn) {
     return $main_arr;
 }
 
+function writing_data_week($conn) {
+    $main_arr = array();
+    $dates = array();
+    $amounts = array();
+    $result = $conn->query("SELECT CONCAT(YEAR(writing_date), '/', WEEK(writing_date)) week, SUM(writing_time) writing_time
+    FROM writing
+    WHERE YEAR(writing_date) = YEAR(CURRENT_DATE) OR YEAR(writing_date) = YEAR(CURRENT_DATE) - 1
+    GROUP BY CONCAT(YEAR(writing_date), '/', WEEK(writing_date))");
+
+    while ($row = $result->fetch_assoc()) {
+        array_push($dates, $row["week"]);
+        array_push($amounts, $row["writing_time"]);
+    }
+    $main_arr["x"] = $dates;
+    $main_arr["y"] = $amounts;
+    return $main_arr;
+}
+
+function writing_data_month($conn) {
+    $main_arr = array();
+    $dates = array();
+    $amounts = array();
+    $result = $conn->query("SELECT CONCAT(YEAR(writing_date), '-', MONTH(writing_date)) month, SUM(writing_time) writing_time
+    FROM writing
+    WHERE YEAR(writing_date) = YEAR(CURRENT_DATE) OR YEAR(writing_date) = YEAR(CURRENT_DATE) - 1
+    GROUP BY CONCAT(YEAR(writing_date), '-', MONTH(writing_date))");
+
+    while ($row = $result->fetch_assoc()) {
+        array_push($dates, $row["month"]);
+        array_push($amounts, $row["writing_time"]);
+    }
+    $main_arr["x"] = $dates;
+    $main_arr["y"] = $amounts;
+    return $main_arr;
+}
+
 function assets_data($conn) {
     $main_arr = array();
     $categories = array();

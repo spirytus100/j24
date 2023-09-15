@@ -1,7 +1,7 @@
 <!doctype html>
 <html class="h-100" lang="pl">
   <head>
-    <?php display_head("Pisanie", $elements); ?>
+    <?php display_head("Pisanie tygodniowo", $elements); ?>
     <script src="https://cdn.plot.ly/plotly-2.25.2.min.js" charset="utf-8"></script>
   </head>
 <body class="d-flex flex-column h-100">
@@ -15,8 +15,8 @@
 
     <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Pisanie</h1>
-        <a href="/charts/writing/weekly" class="btn btn-primary">Tygodniowo</a>
+        <h1 class="h2">Pisanie tygodniowo</h1>
+        <a href="/charts/writing/monthly" class="btn btn-primary">Miesięcznie</a>
       </div>
         <div id="writing-chart"></div>
     </main>
@@ -36,15 +36,15 @@ xmlhttp.onreadystatechange = function() {
           orientation: "v"
         }];
         const layout = {
-          title: "Dzienny czas pisania",
+          title: "Tygodniowy czas pisania",
           shapes: [
           {
               type: 'line',
               xref: 'paper',
               x0: 0,
-              y0: 3300,
+              y0: 23100,
               x1: 1,
-              y1: 3300,
+              y1: 23100,
               line:{
                   color: 'rgb(255, 0, 0)',
                   width: 4,
@@ -56,7 +56,7 @@ xmlhttp.onreadystatechange = function() {
         Plotly.newPlot("writing-chart", chart_data, layout)
     }
 }
-xmlhttp.open("GET", "/../../data.php?type=writing");
+xmlhttp.open("GET", "/../../data.php?type=writing&group=week");
 xmlhttp.send();
 </script>
 <?php display_footer(); ?>

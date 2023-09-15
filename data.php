@@ -7,8 +7,16 @@ header("Content-Type: application/json");
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
     if (isset($_GET["type"])) {
 
-        if ($_GET["type"] == "writing") {
+        if ($_GET["type"] == "writing" && !isset($_GET["group"])) {
             $data = writing_data($conn);
+            echo json_encode($data);
+
+        } else if ($_GET["type"] == "writing" && $_GET["group"] == "week") {
+            $data = writing_data_week($conn);
+            echo json_encode($data);
+
+        } else if ($_GET["type"] == "writing" && $_GET["group"] == "month") {
+            $data = writing_data_month($conn);
             echo json_encode($data);
 
         } else if ($_GET["type"] == "assets") {

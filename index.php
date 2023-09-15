@@ -115,6 +115,14 @@ if ($request_path == "") {
     } else if (preg_match("#^charts/writing/?$#", $request_path)) {
         include "templates/charts/writing.php";
 
+    # path '/charts/writing/weekly'
+    } else if (preg_match("#^charts/writing/weekly/?$#", $request_path)) {
+        include "templates/charts/writing_weekly.php";
+
+    # path '/charts/writing/month'
+    } else if (preg_match("#^charts/writing/monthly/?$#", $request_path)) {
+        include "templates/charts/writing_monthly.php";
+
     # path '/charts/assets'
     } else if (preg_match("#^charts/assets/?$#", $request_path)) {
         include "templates/charts/assets.php";
