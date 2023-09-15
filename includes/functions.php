@@ -33,7 +33,7 @@ function get_budget($conn) {
     $sum_budget = 0;
     $sum_real = 0;
 
-    echo "<table class='table'>
+    echo "<table class='table table-hover table-bordered'>
             <tr>
                 <th>Kategoria</th>
                 <th>Budżet</th>
@@ -42,12 +42,20 @@ function get_budget($conn) {
                 <th>Komentarze</th>
             </tr>";
 
+    echo "<tbody class='table-group-divider'>";
+
     while ($row = $result->fetch_assoc()) {
         $sum_budget += $row["budget_cost"];
         $sum_real += $row["real_cost"];
         $left = $row["budget_cost"]-floatval($row["real_cost"]);
 
-        echo "<tr>";
+        if ($left < 0) {
+            $color = "table-danger";
+        } else {
+            $color = "";
+        }
+
+        echo "<tr class='$color'>";
         echo "<td>".$row["category"]."</td>";
         echo "<td>".$row["budget_cost"]."</td>";
         echo "<td>".floatval($row["real_cost"])."</td>";
@@ -55,6 +63,8 @@ function get_budget($conn) {
         echo "<td>".$row["comments"]."</td>";
         echo "</tr>";
     }
+
+    echo "<tbody class='table-group-divider'>";
 
     $left = $sum_budget-floatval($sum_real);
     echo "<tr>";
