@@ -8,7 +8,7 @@
 <?php display_header(); ?>
 
 <div class="container-fluid">
-  <div class="row">
+  <div class="row mb-5">
 
     <?php display_sidebar(); ?>
 
@@ -45,6 +45,5 @@
     </main>
   </div>
 </div>
-<?php display_footer(); ?>
 </body>
 </html>
