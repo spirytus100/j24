@@ -23,12 +23,20 @@
       </div>
         <div class="row mb-5">
             <div class="col">
-                <?php get_tasks($conn); ?>
+                <?php 
+
+                if (isset($_GET["category"])) {
+                  $category = $_GET["category"];
+                } else {
+                  $category = NULL;
+                }
+                get_tasks($conn, $category); 
+                
+                ?>
             </div>
         </div>
     </main>
   </div>
 </div>
-<?php display_footer(); ?>
 </body>
 </html>

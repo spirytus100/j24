@@ -438,7 +438,7 @@ function weekday($scheduled_time) {
 
 }
 
-function get_tasks($conn) {
+function get_tasks($conn, $category) {
     $headers = array(
         "late" => false,
         "today" => false,
@@ -450,7 +450,15 @@ function get_tasks($conn) {
         "later" => false
     );
 
-    $result = $conn->query("SELECT * FROM tasks WHERE YEAR(scheduled_time) = YEAR(CURRENT_DATE) AND finished = 0 ORDER BY scheduled_time");
+
+    if ($category != NULL) {
+        $category = strtolower($category);
+        $sql = "SELECT * FROM tasks WHERE YEAR(scheduled_time) = YEAR(CURRENT_DATE) AND finished = 0 AND LOWER(category) = '$category' ORDER BY scheduled_time";
+    } else {
+        $sql = "SELECT * FROM tasks WHERE YEAR(scheduled_time) = YEAR(CURRENT_DATE) AND finished = 0 ORDER BY scheduled_time";
+    }
+
+    $result = $conn->query($sql);
     while ($row = $result->fetch_assoc()) {
         $task_id = $row["id"];
 
@@ -473,7 +481,7 @@ function get_tasks($conn) {
             <a href='edit/$task_id'><i class='fa-solid fa-pen fa-xl ms-1 me-2 text-info'></i></a>
             <span class='d-none d-sm-inline bg-dark text-light p-2 rounded'>$weekday $formatted_task_time</span>
             <span class='d-sm-none bg-dark text-light p-2 rounded'>$scheduled_time</span>
-            <span class='d-inline bg-success text-light p-2 ms-2 rounded'>$category</span>";
+            <a href='/tasks?category=".strtolower($category)."' class='text-decoration-none'><span class='d-inline bg-success text-light p-2 ms-2 rounded'>".ucfirst($category)."</span></a>";
         if (date_create() > date_create($scheduled_time)) {
             echo "<i class='fa-solid fa-xl fa-exclamation ms-3 text-danger'></i>";
         }

@@ -111,6 +111,10 @@ if ($request_path == "") {
     } else if (preg_match("#^tasks/edit/[0-9]*$#", $request_path)) {
         include "templates/edit_task.php";
 
+    # path '/tasks?category=wizyty'
+    } else if (preg_match("#^tasks\?category=*#", $request_path)) {
+        include "templates/tasks.php";
+
     # path '/charts/writing'
     } else if (preg_match("#^charts/writing/?$#", $request_path)) {
         include "templates/charts/writing.php";
