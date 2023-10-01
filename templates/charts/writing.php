@@ -42,9 +42,9 @@ xmlhttp.onreadystatechange = function() {
               type: 'line',
               xref: 'paper',
               x0: 0,
-              y0: 3300,
+              y0: 0.92,
               x1: 1,
-              y1: 3300,
+              y1: 0.92,
               line:{
                   color: 'rgb(255, 0, 0)',
                   width: 4,

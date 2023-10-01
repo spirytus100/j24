@@ -4,7 +4,7 @@ function writing_data($conn) {
     $main_arr = array();
     $dates = array();
     $amounts = array();
-    $result = $conn->query("SELECT writing_date, SUM(writing_time) writing_time
+    $result = $conn->query("SELECT writing_date, ROUND(SUM(writing_time)/60/60, 2) writing_time
     FROM writing
     WHERE writing_date BETWEEN DATE_SUB(CURRENT_DATE, INTERVAL 90 DAY) AND CURRENT_DATE GROUP BY writing_date ORDER BY writing_date");
     while ($row = $result->fetch_assoc()) {
@@ -20,7 +20,7 @@ function writing_data_week($conn) {
     $main_arr = array();
     $dates = array();
     $amounts = array();
-    $result = $conn->query("SELECT CONCAT(YEAR(writing_date), '/', WEEK(writing_date)) week, SUM(writing_time) writing_time
+    $result = $conn->query("SELECT CONCAT(YEAR(writing_date), '/', WEEK(writing_date)) week, ROUND(SUM(writing_time)/60/60, 2) writing_time
     FROM writing
     WHERE YEAR(writing_date) = YEAR(CURRENT_DATE) OR YEAR(writing_date) = YEAR(CURRENT_DATE) - 1
     GROUP BY CONCAT(YEAR(writing_date), '/', WEEK(writing_date))");
@@ -38,7 +38,7 @@ function writing_data_month($conn) {
     $main_arr = array();
     $dates = array();
     $amounts = array();
-    $result = $conn->query("SELECT CONCAT(YEAR(writing_date), '-', MONTH(writing_date)) month, SUM(writing_time) writing_time
+    $result = $conn->query("SELECT CONCAT(YEAR(writing_date), '-', MONTH(writing_date)) month, ROUND(SUM(writing_time)/60/60, 2) writing_time
     FROM writing
     WHERE YEAR(writing_date) = YEAR(CURRENT_DATE) OR YEAR(writing_date) = YEAR(CURRENT_DATE) - 1
     GROUP BY CONCAT(YEAR(writing_date), '-', MONTH(writing_date))");

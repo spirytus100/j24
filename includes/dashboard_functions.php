@@ -70,7 +70,7 @@ function invested_assets_percent($conn) {
 
 function income_last_month($conn) {
     if (idate("m") != 12) {
-        $sql = "SELECT SUM(value) FROM income WHERE MONTH(income_date) = MONTH(CURRENT_DATE) - 1";
+        $sql = "SELECT SUM(value) FROM income WHERE MONTH(income_date) = MONTH(CURRENT_DATE) - 1 AND YEAR(income_date) = YEAR(CURRENT_DATE)";
     } else {
         $sql = "SELECT SUM(value) FROM income WHERE MONTH(income_date) = 12 AND YEAR(income_date) = YEAR(CURRENT_DATE) - 1";
     }

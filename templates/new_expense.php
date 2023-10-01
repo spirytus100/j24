@@ -34,6 +34,10 @@
                 <datalist id="categories">
                     <?php get_expense_categories($conn); ?>
                 </datalist>
+                <div class="mb-3 mt-3">
+                    <label class="form-label" for="company">Firma</label>
+                    <input class="form-control" type="text" name="company">
+                </div>
                 <div class="mb-3">
                   <label class='form-label' for='expense_date'>Data</label>
                   <input class='form-control' type='date' name='expense_date' value="<?php echo date('Y-m-d'); ?>">
