@@ -1,3 +1,4 @@
+<?php include $_SERVER["DOCUMENT_ROOT"] . "/includes/login_redirect.php"; ?>
 <!doctype html>
 <html class="h-100" lang="pl">
   <head>
@@ -7,8 +8,7 @@
     crossorigin="anonymous"
     referrerpolicy="no-referrer" />
   </head>
-<body class="d-flex flex-column h-100">
-<?php include $_SERVER["DOCUMENT_ROOT"] . "/includes/login_redirect.php"; ?>   
+<body class="d-flex flex-column h-100">  
 <?php display_header(); ?>
 
 <div class="container-fluid">

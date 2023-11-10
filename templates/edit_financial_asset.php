@@ -1,10 +1,10 @@
+<?php include $_SERVER["DOCUMENT_ROOT"] . "/includes/login_redirect.php"; ?>
 <!doctype html>
 <html class="h-100" lang="pl">
   <head>
     <?php display_head("Edycja inwestycji", $elements); ?>
   </head>
-<body class="d-flex flex-column h-100">
-<?php include $_SERVER["DOCUMENT_ROOT"] . "/includes/login_redirect.php"; ?>   
+<body class="d-flex flex-column h-100">  
 <?php display_header(); ?>
 
 <div class="container-fluid">
