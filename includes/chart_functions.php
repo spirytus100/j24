@@ -1,5 +1,10 @@
 <?php
 
+include $_SERVER["DOCUMENT_ROOT"] . "/includes/MovingAverage.php";
+
+use Dcvn\Math\Statistics as s;
+
+
 function writing_data($conn) {
     $main_arr = array();
     $dates = array();
@@ -13,6 +18,10 @@ function writing_data($conn) {
     }
     $main_arr["x"] = $dates;
     $main_arr["y"] = $amounts;
+    $moving_average = new s\MovingAverage();
+    $moving_average->setPeriod(7);
+    $mavg = $moving_average->getCalculatedFromArray(array_map("floatval", $amounts));
+    $main_arr["avg"] = $mavg;
     return $main_arr;
 }
 

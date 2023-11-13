@@ -29,12 +29,22 @@ xmlhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
         data = JSON.parse(this.responseText);
 
-        const chart_data = [{
+        const chart_data = {
           x: data.x,
           y: data.y,
           type: "bar",
-          orientation: "v"
-        }];
+          name: "Czas pisania"
+        };
+
+        const avg_data = {
+          x: data.x,
+          y: data.avg,
+          type: "line",
+          name: "Średnia ruchoma"
+        };
+
+        const cdata = [chart_data, avg_data];
+
         const layout = {
           title: "Dzienny czas pisania",
           shapes: [
@@ -53,7 +63,7 @@ xmlhttp.onreadystatechange = function() {
           }
           ]
         };
-        Plotly.newPlot("writing-chart", chart_data, layout)
+        Plotly.newPlot("writing-chart", cdata, layout)
     }
 }
 xmlhttp.open("GET", "/../../data.php?type=writing");
