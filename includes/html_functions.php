@@ -73,6 +73,9 @@ function display_sidebar() {
       <li class='nav-item'>
         <a class='nav-link' href='/books/new'>Nowa książka</a>
       </li>
+      <li class='nav-item'>
+        <a class='nav-link' href='/writing/new'>Nowe pisanie</a>
+      </li>
     </ul>
   </div>
   </nav>";

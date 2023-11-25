@@ -127,7 +127,6 @@ function display_expenses_table($conn) {
     echo "<table class='table table-striped' id='expenses-table' style='width:100%'>
         <thead>
         <tr>
-        <th scope='col' style='color: black'>Id</th>
         <th scope='col' style='color: black'>Data</th>
         <th scope='col' style='color: black'>Przedmiot</th>
         <th scope='col' style='color: black'>Kategoria</th>
@@ -141,7 +140,6 @@ function display_expenses_table($conn) {
     echo "<tbody>";
     while ($row = $result->fetch_assoc()) {
         echo "<tr>";
-        echo "<td>" . $row["id"] . "</td>";
         echo "<td>" . $row["expense_date"] . "</td>";
         echo "<td>" . $row["item"] . "</td>";
         echo "<td>" . $row["category"] . "</td>";

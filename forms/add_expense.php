@@ -19,7 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $result = $stmt->execute();
 
     $conn->close();
-    header("Location: /expenses/");
+    header("Location: /");
 
 } else {
     http_response_code(405);
