@@ -9,18 +9,26 @@ function display_head($title, $_url_elements) {
     switch (count($_url_elements)) {
       case 0:
         $favicon = "<link rel='icon' href='favicon.ico'>";
+        $fav_android_1 = "<link rel='icon' sizes='192x192' href='android-chrome-192x192.png'>";
+        $fav_android_2 = "<link rel='icon' sizes='512x512' href='android-chrome-512x512.png'>";
         break;
       case 1:
         $favicon = "<link rel='icon' href='/../favicon.ico'>";
+        $fav_android_1 = "<link rel='icon' sizes='192x192' href='/../android-chrome-192x192.png'>";
+        $fav_android_2 = "<link rel='icon' sizes='512x512' href='/../android-chrome-512x512.png'>";
         break;
       case 2:
         $favicon = "<link rel='icon' href='/../../favicon.ico'>";
+        $fav_android_1 = "<link rel='icon' sizes='192x192' href='/../../android-chrome-192x192.png'>";
+        $fav_android_2 = "<link rel='icon' sizes='512x512' href='/../../android-chrome-512x512.png'>";
         break;
       case 3:
         $favicon = "<link rel='icon' href='/../../../favicon.ico'>";
+        $fav_android_1 = "<link rel='icon' sizes='192x192' href='/../../../android-chrome-192x192.png'>";
+        $fav_android_2 = "<link rel='icon' sizes='512x512' href='/../../../android-chrome-512x512.png'>";
         break;
     }
-    echo $headers . $favicon;
+    echo $headers . $favicon . $fav_android_1 . $fav_android_2;
 }
 
 function display_header() {

@@ -7,6 +7,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $title = $_POST["title"];
     $prod_year = $_POST["prod_year"];
     $genre = $_POST["genre"];
+    $production = $_POST["production"];
 
     if (isset($_POST["movie_watched"])) {
         $watched = true;
@@ -26,8 +27,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $rating = null;
     }
 
-    $stmt = $conn->prepare("INSERT INTO movies (title, prod_year, genre, watched, watch_date, rating) VALUES (?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param("sisisi", $title, $prod_year, $genre, $watched, $watch_date, $rating);
+    $stmt = $conn->prepare("INSERT INTO movies (title, prod_year, genre, production, watched, watch_date, rating) VALUES (?, ?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param("sissisi", $title, $prod_year, $genre, $production, $watched, $watch_date, $rating);
     $stmt->execute();
     header("Location: /movies/");
 

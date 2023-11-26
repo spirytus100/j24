@@ -86,6 +86,8 @@ function new_movie_form($conn) {
         <input class='form-control' type='text' name='title' required><br>
         <label class='form-label' for='prod_year'>Rok produkcji</label><br>
         <input class='form-control' type='number' name='prod_year' min='1900' max='2100' step='1' required><br>
+        <label class='form-label' for='production'>Produkcja</label><br>
+        <input class='form-control' name='production'><br>
         <label class='form-label' for='genre'>Gatunek</label><br>
         <input class='form-control' list='genres' name='genre' required>
     <datalist id='genres'>";
@@ -287,6 +289,7 @@ function display_movies_table($conn) {
         <th scope='col' style='color: black'>Tytuł</th>
         <th scope='col' style='color: black'>Rok produkcji</th>
         <th scope='col' style='color: black'>Gatunek</th>
+        <th scope='col' style='color: black'>Produkcja</th>
         <th scope='col' style='color: black'>Obejrzany</th>
         <th scope='col' style='color: black'>Data obejrzenia</th>
         <th scope='col' style='color: black'>Ocena</th>
@@ -308,6 +311,7 @@ function display_movies_table($conn) {
         echo "<td><a href='/movies/edit/" . $row["id"] . "'>" . $row["title"] . "</a></td>";
         echo "<td>" . $row["prod_year"] . "</td>";
         echo "<td>" . $row["genre"] . "</td>";
+        echo "<td>" . $row["production"] . "</td>";
         echo "<td>" . $watched . "</td>";
         echo "<td>" . $row["watch_date"] . "</td>";
         echo "<td>" . $row["rating"] . "</td>";
