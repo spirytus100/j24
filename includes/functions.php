@@ -137,7 +137,7 @@ function display_expenses_table($conn) {
         </tr>
         </thead>";
    
-    $result = $conn->query("SELECT * FROM expenses");
+    $result = $conn->query("SELECT * FROM expenses WHERE YEAR(expense_date) >= YEAR(CURRENT_DATE) - 1");
 
     echo "<tbody>";
     while ($row = $result->fetch_assoc()) {
