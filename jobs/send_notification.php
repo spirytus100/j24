@@ -36,7 +36,7 @@ if ($i == 1) {
 echo "Sending message...\n";
 $mailer = new MyMailer("ssl0.ovh.net");
 $mailer->default_settings();
-$mailer->send_mail("admin@j24.ovh", $mail_passwd, $target_email, $title, $msg);
+$mailer->send_mail("admin@xxx.ovh", $mail_passwd, $target_email, $title, $msg);
 $conn->close();
 exit("Mail sent");
 
