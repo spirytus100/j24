@@ -42,9 +42,9 @@ xmlhttp.onreadystatechange = function() {
               type: 'line',
               xref: 'paper',
               x0: 0,
-              y0: 9,
+              y0: <?php echo get_setting_value($conn, "weekly_writing_threshold"); ?>,
               x1: 1,
-              y1: 9,
+              y1: <?php echo get_setting_value($conn, "weekly_writing_threshold"); ?>,
               line:{
                   color: 'rgb(255, 0, 0)',
                   width: 4,
@@ -59,6 +59,5 @@ xmlhttp.onreadystatechange = function() {
 xmlhttp.open("GET", "/../../data.php?type=writing&group=week");
 xmlhttp.send();
 </script>
-<?php display_footer(); ?>
 </body>
 </html>
