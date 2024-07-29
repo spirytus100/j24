@@ -41,6 +41,27 @@
 
       <div class="row mb-3">
         <div class="col">
+          <div class="bg-info p-3 text-center text-black shadow">
+            <h5>Średnia pisania dziennie</h5>
+            <h2><b><?php echo get_writing_average($conn); ?></b> minut</h2>
+          </div>
+        </div>
+        <div class="col">
+          <div class="bg-info p-3 text-center text-black shadow">
+            <h5>Piszę już</h5>
+            <h2><b><?php echo writing_time_spent($conn); ?></b></h2>
+          </div>
+        </div>
+        <div class="col">
+          <div class="bg-info p-3 text-center text-black shadow">
+            <h5>Dni do mistrzostwa</h5>
+            <h2><b><?php echo writing_left_to_mastery($conn); ?></b></h2>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <div class="col">
           <div class="bg-warning p-3 text-center text-dark shadow">
             <h5>Majątek</h5>
             <h2><b><?php echo format_money(get_total_wealth($conn)); ?> zł</b></h2>
@@ -54,21 +75,6 @@
         </div>
       </div>
 
-      <div class="row">
-        <div class="col">
-          <div class="bg-info p-3 text-center text-dark shadow">
-              <h5>Dochody</h5>
-              <h2><b><?php echo format_money(income_last_month($conn)); ?> zł</b></h2>
-            </div>
-          </div>
-        <div class="col">
-          <div class="bg-info p-3 text-center text-dark shadow">
-              <h5>Wydatki</h5>
-              <h2><b><?php echo format_money(last_month_spending($conn)); ?> zł</b></h2>
-            </div>
-          </div>
-        </div>
-      </div>
     </main>
   </div>
 </div>

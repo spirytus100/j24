@@ -25,6 +25,32 @@ function get_total_writing($conn) {
     return $writing_time;
 }
 
+function get_writing_average($conn) {
+    $result = $conn->query("SELECT SUM(writing_time) / COUNT(DISTINCT(writing_date)) FROM `writing` where writing_date > '2023-12-01'");
+    $writing_avg = $result->fetch_row();
+    $writing_all = $writing_avg[0];
+    $avg_minutes = floor($writing_all / 60);
+    return $avg_minutes;
+}
+
+function writing_left_to_mastery($conn) {
+    $result = $conn->query("SELECT (10000*60*60-529200-1080000) / (sum(writing_time) / COUNT(DISTINCT(writing_date))) FROM `writing` where writing_date > '2023-12-01'");
+    $days_all = $result->fetch_row();
+    $days_all = $days_all[0];
+    $years = floor($days_all / 365);
+    $days = floor($days_all - $years * 365);
+    return "$years lat i $days dni";
+}
+
+function writing_time_spent($conn) {
+    $result = $conn->query("SELECT COUNT(DISTINCT(writing_date)) + 400 FROM `writing`");
+    $writing_days = $result->fetch_row();
+    $writing_days = $writing_days[0];
+    $years = floor($writing_days / 365);
+    $days = $writing_days - $years * 365;
+    return "$years lata i $days dni";
+}
+
 function get_total_read_books($conn) {
     $result = $conn->query("SELECT COUNT(*) FROM books WHERE finished IS NOT NULL");
     $total = $result->fetch_row();
