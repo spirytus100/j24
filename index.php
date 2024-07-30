@@ -135,6 +135,10 @@ if ($request_path == "") {
     } else if (preg_match("#^charts/savings/?$#", $request_path)) {
         include "templates/charts/savings.php";
 
+    # path '/wishlist/'
+    } else if (preg_match("#^wishlist/?$#", $request_path)) {
+        include "templates/wish_list.php";
+
     } else {
         http_response_code(404);
         die();

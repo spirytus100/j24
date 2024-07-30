@@ -493,4 +493,14 @@ function get_tasks($conn, $category) {
     }
 }
 
+function display_wish_list($conn) {
+    $result = $conn->query("SELECT id, item FROM wish_list");
+    echo "<ul class='list-group'>";
+    while ($row = $result->fetch_assoc()) {
+        $wish_id = $row["id"];
+        echo "<li class='list-group-item mb-1'><a href='/../forms/remove_wish.php?id=$wish_id'><i class='fa-solid fa-xl fa-xmark text-danger me-3'></i></a>" . $row["item"] . "</li>";
+    }
+    echo "</ul>";
+}
+
 ?>
