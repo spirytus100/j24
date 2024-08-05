@@ -64,7 +64,7 @@ function display_sidebar() {
         <a class='nav-link' href='/budget/'>Budżet</a>
       </li>
       <li class='nav-item'>
-        <a class='nav-link' href='/wishlist/new'>Nowe życzenie</a>
+        <a class='nav-link' href='/wishlist/'>Nowe życzenie</a>
       </li>
       <li class='nav-item'>
         <a class='nav-link' href='/expenses/new'>Nowy wydatek</a>
