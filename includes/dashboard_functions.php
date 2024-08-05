@@ -26,19 +26,25 @@ function get_total_writing($conn) {
 }
 
 function get_writing_average($conn) {
-    $result = $conn->query("SELECT SUM(writing_time) / COUNT(DISTINCT(writing_date)) FROM `writing` where writing_date > '2023-12-01'");
+    # zwraca średnią dzienną ilość czasu pisania w minutach
+    
+    $result = $conn->query("SELECT SUM(writing_time) / COUNT(DISTINCT(writing_date)) / 60 FROM `writing` WHERE id NOT IN (2, 3);");
     $writing_avg = $result->fetch_row();
-    $writing_all = $writing_avg[0];
-    $avg_minutes = floor($writing_all / 60);
-    return $avg_minutes;
+    $avg_minutes = $writing_avg[0];
+    return floor($avg_minutes);
 }
 
 function writing_left_to_mastery($conn) {
-    $result = $conn->query("SELECT (10000*60*60-529200-1080000) / (sum(writing_time) / COUNT(DISTINCT(writing_date))) FROM `writing` where writing_date > '2023-12-01'");
-    $days_all = $result->fetch_row();
-    $days_all = $days_all[0];
-    $years = floor($days_all / 365);
-    $days = floor($days_all - $years * 365);
+    $result = $conn->query("SELECT (10000 * 60 * 60 - SUM(writing_time)) / 60 FROM writing");
+    $time_left = $result->fetch_row();
+
+    $all_time_left_minutes = $time_left[0];
+    $avg_minutes_in_day = get_writing_average($conn);
+
+    $days_left = $all_time_left_minutes / $avg_minutes_in_day;
+
+    $years = floor($days_left / 365);
+    $days = floor($days_left - $years * 365);
     return "$years lat i $days dni";
 }
 
