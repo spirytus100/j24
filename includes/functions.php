@@ -57,9 +57,9 @@ function get_budget($conn) {
 
         echo "<tr class='$color'>";
         echo "<td>".$row["category"]."</td>";
-        echo "<td>".$row["budget_cost"]."</td>";
-        echo "<td>".floatval($row["real_cost"])."</td>";
-        echo "<td>".$left."</td>";
+        echo "<td>".round($row["budget_cost"], 2)."</td>";
+        echo "<td>".round(floatval($row["real_cost"]), 2)."</td>";
+        echo "<td>".round($left, 2)."</td>";
         echo "<td>".$row["comments"]."</td>";
         echo "</tr>";
     }
@@ -69,9 +69,9 @@ function get_budget($conn) {
     $left = $sum_budget-floatval($sum_real);
     echo "<tr>";
     echo "<td><b>Podsumowanie</b></td>";
-    echo "<td><b>".$sum_budget."</b></td>";
-    echo "<td><b>".$sum_real."</b></td>";
-    echo "<td><b>".$left."</b></td>";
+    echo "<td><b>".round($sum_budget, 2)."</b></td>";
+    echo "<td><b>".round($sum_real, 2)."</b></td>";
+    echo "<td><b>".round($left, 2)."</b></td>";
     echo "</tr>";
 
     echo "</table>";

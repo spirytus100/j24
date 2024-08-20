@@ -41,6 +41,5 @@ xmlhttp.onreadystatechange = function() {
 xmlhttp.open("GET", "/../../data.php?type=assets");
 xmlhttp.send();
 </script>
-<?php display_footer(); ?>
 </body>
 </html>

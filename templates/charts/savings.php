@@ -66,6 +66,5 @@ xmlhttp.onreadystatechange = function() {
 xmlhttp.open("GET", "/../../data.php?type=savings");
 xmlhttp.send();
 </script>
-<?php display_footer(); ?>
 </body>
 </html>
