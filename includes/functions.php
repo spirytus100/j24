@@ -217,7 +217,6 @@ function display_income_table($conn) {
     echo "<table class='table table-striped' id='income-table' style='width:100%'>
         <thead>
         <tr>
-        <th scope='col' style='color: black'>Id</th>
         <th scope='col' style='color: black'>Data</th>
         <th scope='col' style='color: black'>Nazwa</th>
         <th scope='col' style='color: black'>Kategoria</th>
@@ -225,12 +224,11 @@ function display_income_table($conn) {
         </tr>
         </thead>";
    
-    $result = $conn->query("SELECT * FROM income");
+    $result = $conn->query("SELECT * FROM income ORDER BY income_date");
 
     echo "<tbody>";
     while ($row = $result->fetch_assoc()) {
         echo "<tr>";
-        echo "<td>" . $row["id"] . "</td>";
         echo "<td>" . $row["income_date"] . "</td>";
         echo "<td>" . $row["asset"] . "</td>";
         echo "<td>" . $row["category"] . "</td>";
