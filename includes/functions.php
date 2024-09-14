@@ -7,6 +7,17 @@ function get_setting_value($conn, $setting_name) {
     return $value[0];
 }
 
+
+function get_donation_value($conn) {
+    $donation_perc = get_setting_value($conn, "donation_share");
+    $sql = "SELECT ROUND($donation_perc * value) FROM income WHERE asset = 'pensja' ORDER BY ID DESC LIMIT 1;";
+    $result = $conn->query($sql);
+    $value = $result->fetch_row();
+    $donation = $value[0];
+    return $donation;
+}
+
+
 function get_expense_categories($conn) {
     $result = $conn->query("SELECT name FROM expense_categories");
     while ($row = $result->fetch_assoc()) {
@@ -15,15 +26,25 @@ function get_expense_categories($conn) {
     }
 }
 
+
 function new_budget_form($conn) {
     $result = $conn->query("SELECT id, name FROM expense_categories");
     while ($row = $result->fetch_assoc()) {
         echo "<div class='input-group'>";
         echo "<span class='input-group-text'>".$row["name"]."</span>";
-        echo "<input class='form-control budget-input' id='budget' type='number' name='".$row["name"]."' min='0' max='99999' value='0'>";
+
+        # oblicz darowiznę na podstawie ostatniej pensji
+        if ($row["name"] == "darowizna") {
+            $prepopulated_value = get_donation_value($conn);
+        } else {
+            $prepopulated_value = 0;
+        }
+        
+        echo "<input class='form-control budget-input' id='budget' type='number' name='".$row["name"]."' min='0' max='99999' value='$prepopulated_value'>";
         echo "</div>";
     }
 }
+
 
 function get_budget($conn) {
     $sql = "SELECT * FROM budget";
@@ -78,6 +99,7 @@ function get_budget($conn) {
 
 }
 
+
 function new_movie_form($conn) {
     $result = $conn->query("SELECT name FROM movies_genres");
 
@@ -107,6 +129,7 @@ function new_movie_form($conn) {
 </form>";
 }
 
+
 function get_financial_asset_categories($conn) {
     $result = $conn->query("SELECT name FROM financial_asset_categories");
 
@@ -116,6 +139,7 @@ function get_financial_asset_categories($conn) {
     }
 }
 
+
 function get_financial_assets_paying_interests($conn) {
     $result = $conn->query("SELECT name FROM financial_assets WHERE category != 'surowce' AND category != 'kryptowaluty'");
 
@@ -124,6 +148,7 @@ function get_financial_assets_paying_interests($conn) {
         echo "<option value='$category'>$category</option>";
     }
 }
+
 
 function display_expenses_table($conn) {
     echo "<table class='table table-striped' id='expenses-table' style='width:100%'>
@@ -153,6 +178,7 @@ function display_expenses_table($conn) {
     echo "</table>";
 
 }
+
 
 function display_assets_table($conn) {
     echo "<table class='table table-striped' id='assets-table' style='width:100%'>
@@ -213,6 +239,7 @@ function display_assets_table($conn) {
 
 }
 
+
 function display_income_table($conn) {
     echo "<table class='table table-striped' id='income-table' style='width:100%'>
         <thead>
@@ -239,6 +266,7 @@ function display_income_table($conn) {
     echo "</table>";
 
 }
+
 
 function display_books_table($conn) {
     echo "<table class='table table-striped' id='books-table' style='width:100%'>
@@ -278,6 +306,7 @@ function display_books_table($conn) {
     echo "</table>";
 
 }
+
 
 function display_movies_table($conn) {
     echo "<table class='table table-striped' id='movies-table' style='width:100%'>
@@ -320,6 +349,7 @@ function display_movies_table($conn) {
 
 }
 
+
 function get_movies_genres($conn) {
     $result = $conn->query("SELECT name FROM movies_genres");
     while ($row = $result->fetch_assoc()) {
@@ -327,6 +357,7 @@ function get_movies_genres($conn) {
         echo "<option value='$category'>$category</option>";
     }
 }
+
 
 function get_record_data($conn, $table, $id) {
     $stmt = $conn->prepare("SELECT * FROM $table WHERE id = ?");
@@ -336,6 +367,7 @@ function get_record_data($conn, $table, $id) {
     $data = $result->fetch_assoc();
     return $data;
 }
+
 
 function display_cash_table($conn) {
     echo "<table class='table'>
@@ -360,6 +392,7 @@ function display_cash_table($conn) {
     echo "</table>";
 }
 
+
 function get_task_categories($conn) {
     $result = $conn->query("SELECT name FROM task_categories");
     while ($row = $result->fetch_assoc()) {
@@ -367,6 +400,7 @@ function get_task_categories($conn) {
         echo "<option value='$category'>$category</option>";
     }
 }
+
 
 function display_task_header($scheduled_time, $headers) {
     $task_date = substr($scheduled_time, 0, 10);
@@ -423,6 +457,7 @@ function display_task_header($scheduled_time, $headers) {
     return $headers;
 }
 
+
 function weekday($scheduled_time) {
     $task_date = substr($scheduled_time, 0, 10);
     $weekdays = array(
@@ -437,6 +472,7 @@ function weekday($scheduled_time) {
     return $weekdays[date("w", strtotime($task_date))];
 
 }
+
 
 function get_tasks($conn, $category) {
     $headers = array(
@@ -490,6 +526,7 @@ function get_tasks($conn, $category) {
         </div>";
     }
 }
+
 
 function display_wish_list($conn) {
     $result = $conn->query("SELECT id, item FROM wish_list");

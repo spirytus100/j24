@@ -73,14 +73,20 @@ function get_total_movies($conn) {
 
 function get_total_wealth($conn) {
     $sql = "
-    SELECT sum(s.total) AS total_money
+    SELECT ROUND(SUM(s.total), 2) AS total_money
     FROM (
-        SELECT sum((((financial_assets.buy_quantity) * financial_assets.buy_price) - financial_assets.buy_commission)) AS total
+        SELECT SUM((((financial_assets.buy_quantity) * financial_assets.buy_price) - financial_assets.buy_commission)) AS total
             FROM financial_assets
             WHERE (financial_assets.active = true)
         UNION
-        SELECT sum(cash.value) AS total
-        FROM cash) s;";
+        SELECT SUM(cash.value) AS total
+            FROM cash
+        UNION
+        SELECT c.value * er.rate AS total 
+            FROM crypto c 
+            JOIN exchange_rates er ON c.name = er.currency 
+            WHERE er.currency = 'BTC' 
+    ) s;";
 
     $result = $conn->query($sql);
     $total = $result->fetch_row();
