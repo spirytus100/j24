@@ -43,14 +43,18 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
         
         # match string and insert expense
         if (preg_match("#\d zł#", $task_content)) {
-           $expense_data = explode(" ", $task_content);
-           $item = $expense_data[0];
-           $company = $expense_data[1];
-           $price = str_replace(",", ".", $expense_data[2]);
+            $expense_data = explode(" ", $task_content);
+            $item = $expense_data[0];
+            $company = $expense_data[1];
+            $price = str_replace(",", ".", $expense_data[2]);
 
-           $stmt = $conn->prepare("INSERT INTO expenses (item, category, price, expense_date, company) VALUES (?, 'rachunki', ?, CURRENT_DATE(), ?)");
-           $stmt->bind_param("sds", $item, $price, $company);
-           $result = $stmt->execute();
+            $stmt = $conn->prepare("INSERT INTO expenses (item, category, price, expense_date, company) VALUES (?, 'rachunki', ?, CURRENT_DATE(), ?)");
+            $stmt->bind_param("sds", $item, $price, $company);
+            $result = $stmt->execute();
+
+            $stmt = $conn->prepare("UPDATE budget SET real_cost = real_cost + ? WHERE category = 'rachunki'");
+            $stmt->bind_param("d", $price);
+            $result = $stmt->execute();
         }
 
         $conn->close();
