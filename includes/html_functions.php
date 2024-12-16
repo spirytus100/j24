@@ -61,7 +61,7 @@ function display_sidebar() {
         <a class='nav-link' href='/tasks/'>Zadania</a>
       </li>
       <li class='nav-item'>
-        <a class='nav-link' href='/budget/'>Budżet</a>
+        <a class='nav-link' href='/activity/new'>Nowa aktywność</a>
       </li>
       <li class='nav-item'>
         <a class='nav-link' href='/wishlist/'>Nowe życzenie</a>
@@ -86,6 +86,9 @@ function display_sidebar() {
       </li>
       <li class='nav-item'>
         <a class='nav-link' href='/writing/new'>Nowe pisanie</a>
+      </li>
+      <li class='nav-item'>
+        <a class='nav-link' href='/budget/'>Budżet</a>
       </li>
     </ul>
   </div>
@@ -128,6 +131,7 @@ function display_sidebar() {
         <a class='nav-link dropdown-toggle' data-bs-toggle='dropdown' href='#' role='button' aria-expanded='false'>Formularze</a>
         <ul class='dropdown-menu'>
           <li><a class='dropdown-item' href='/writing/new'>Nowe pisanie</a></li>
+          <li><a class='dropdown-item' href='/activity/new'>Nowa aktywność</a></li>
           <li><hr class='dropdown-divider'></li>
           <li><a class='dropdown-item' href='/tasks/new'>Nowe zadanie</a></li>
           <li><a class='dropdown-item' href='/expenses/new'>Nowy wydatek</a></li>

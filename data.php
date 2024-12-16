@@ -26,6 +26,11 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
         } else if ($_GET["type"] == "savings") {
             $data = income_expenses($conn);
             echo json_encode($data);
+
+        } else if ($_GET["type"] == "activity") {
+            $project_slug = $_GET["project"];
+            $data = get_project_tasks($conn, $project_slug);
+            echo json_encode($data);
         }
     }
 }

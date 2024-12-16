@@ -117,4 +117,39 @@ function income_expenses($conn) {
 
 }
 
+
+function get_project_tasks($conn, $project_slug) {
+    $tasks = array();
+    $task_ids = array();
+    $main_arr = array();
+
+    # pobierz id projektu
+    $sql = "SELECT id FROM projects WHERE slug = '$project_slug'";
+    $result = $conn->query($sql);
+    $value = $result->fetch_row();
+    $project_id = $value[0];
+
+    # pobierz id i nazwy podzadań
+    $sql = "SELECT id, name FROM projects_tasks WHERE project_id = $project_id AND done = 0";
+    $result = $conn->query($sql);
+
+    # jeśli brak podzadań, odeślij pustą tablicę
+    if (mysqli_num_rows($result) == 0) {
+        $main_arr["found"] = false;
+        return $main_arr;
+    }
+
+    while ($row = $result->fetch_assoc()) {
+        $task_id = $row["id"];
+        $task_name = $row["name"];
+        array_push($tasks, $task_name);
+        array_push($task_ids, $task_id);
+    }
+    $main_arr["found"] = true;
+    $main_arr["task_ids"] = $task_ids;
+    $main_arr["project_tasks"] = $tasks;
+    return $main_arr;
+
+}
+
 ?>

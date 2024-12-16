@@ -139,6 +139,10 @@ if ($request_path == "") {
     } else if (preg_match("#^wishlist/?$#", $request_path)) {
         include "templates/wish_list.php";
 
+    # path '/activity/new'
+    } else if (preg_match("#^activity/new/?$#", $request_path)) {
+        include "templates/activity_new.php";
+
     } else {
         http_response_code(404);
         die();

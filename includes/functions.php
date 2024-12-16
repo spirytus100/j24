@@ -538,4 +538,16 @@ function display_wish_list($conn) {
     echo "</ul>";
 }
 
+
+function get_projects($conn) {
+    $result = $conn->query("SELECT name FROM projects");
+
+    while ($row = $result->fetch_assoc()) {
+        $project_name = $row["name"];
+        $slug = $row["slug"];
+        echo "<option value='$project_name'>$project_name</option>";
+    }
+}
+
+
 ?>
