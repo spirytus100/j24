@@ -104,6 +104,9 @@ function display_sidebar() {
         <a class='nav-link active' href='/tasks/'>Zadania</a>
       </li>
       <li class='nav-item'>
+        <a class='nav-link active' href='/activity/'>Produktywność</a>
+      </li>
+      <li class='nav-item'>
         <a class='nav-link' href='/budget/'>Budżet</a>
       </li>
       <li class='nav-item'>

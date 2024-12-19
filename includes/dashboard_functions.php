@@ -19,7 +19,12 @@ function format_money($number) {
 }
 
 function get_total_writing($conn) {
-    $result = $conn->query("SELECT FLOOR(SUM(writing_time)/60/60) FROM writing");
+    $sql = "SELECT round(sum(pta.time_spent)/60/60)
+        FROM projects p 
+        JOIN projects_tasks pt ON p.id=pt.project_id
+        JOIN projects_tasks_activity pta ON pt.id=pta.task_id
+        WHERE p.name = 'Pisanie'";
+    $result = $conn->query($sql);
     $writing_time = $result->fetch_row();
     $writing_time = $writing_time[0];
     return $writing_time;

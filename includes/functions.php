@@ -550,4 +550,50 @@ function get_projects($conn) {
 }
 
 
+function display_productivity_stats($conn, $type) {
+    echo "<table class='table mb-5'>
+        <thead>
+        <tr>
+        <th scope='col' style='color: black'>Projekt</th>
+        <th scope='col' style='color: black'>Czas</th>
+        </tr>
+        </thead>";
+
+    if ($type == "Tydzień") {
+        $sql = "SELECT p.name, ROUND(SUM(pta.time_spent)/60/60) time_spent
+        FROM projects p 
+        JOIN projects_tasks pt ON p.id=pt.project_id
+        JOIN projects_tasks_activity pta ON pt.id=pta.task_id
+        WHERE pta.activity_date >= DATE_ADD(CURDATE(), INTERVAL(-WEEKDAY(CURDATE())) DAY)
+        GROUP BY p.name";
+
+    } else if ($type == "Miesiąc") {
+        $sql = "SELECT p.name, ROUND(SUM(pta.time_spent)/60/60) time_spent
+        FROM projects p 
+        JOIN projects_tasks pt ON p.id=pt.project_id
+        JOIN projects_tasks_activity pta ON pt.id=pta.task_id
+        WHERE pta.activity_date >= LAST_DAY(curdate() - interval 1 month) + interval 1 day
+        GROUP BY p.name";
+
+    } else {
+        $sql = "SELECT p.name, ROUND(SUM(pta.time_spent)/60/60) time_spent
+        FROM projects p 
+        JOIN projects_tasks pt ON p.id=pt.project_id
+        JOIN projects_tasks_activity pta ON pt.id=pta.task_id
+        GROUP BY p.name";
+    }
+
+    $result = $conn->query($sql);
+    echo "<tbody>";
+    while ($row = $result->fetch_assoc()) {
+        echo "<tr>";
+        echo "<td>" . $row["name"] . "</a></td>";
+        echo "<td>" . $row["time_spent"] . "</td>";
+        echo "</tr>";
+    }
+    echo "</tbody>";
+    echo "</table>";
+}
+
+
 ?>
