@@ -551,6 +551,8 @@ function get_projects($conn) {
 
 
 function display_productivity_stats($conn, $type) {
+    $sum_time = 0;
+
     echo "<table class='table mb-5'>
         <thead>
         <tr>
@@ -565,7 +567,8 @@ function display_productivity_stats($conn, $type) {
         JOIN projects_tasks pt ON p.id=pt.project_id
         JOIN projects_tasks_activity pta ON pt.id=pta.task_id
         WHERE pta.activity_date >= DATE_ADD(CURDATE(), INTERVAL(-WEEKDAY(CURDATE())) DAY)
-        GROUP BY p.name";
+        GROUP BY p.name
+        ORDER BY time_spent DESC";
 
     } else if ($type == "Miesiąc") {
         $sql = "SELECT p.name, ROUND(SUM(pta.time_spent)/60/60) time_spent
@@ -573,24 +576,42 @@ function display_productivity_stats($conn, $type) {
         JOIN projects_tasks pt ON p.id=pt.project_id
         JOIN projects_tasks_activity pta ON pt.id=pta.task_id
         WHERE pta.activity_date >= LAST_DAY(curdate() - interval 1 month) + interval 1 day
-        GROUP BY p.name";
+        GROUP BY p.name
+        ORDER BY time_spent DESC";
+
+    } else if ($type == "Rok") {
+        $sql = "SELECT p.name, ROUND(SUM(pta.time_spent)/60/60) time_spent
+        FROM projects p 
+        JOIN projects_tasks pt ON p.id=pt.project_id
+        JOIN projects_tasks_activity pta ON pt.id=pta.task_id
+        WHERE pta.activity_date >= LAST_DAY(curdate() - interval 1 year) + interval 1 day
+        GROUP BY p.name
+        ORDER BY time_spent DESC";
 
     } else {
         $sql = "SELECT p.name, ROUND(SUM(pta.time_spent)/60/60) time_spent
         FROM projects p 
         JOIN projects_tasks pt ON p.id=pt.project_id
         JOIN projects_tasks_activity pta ON pt.id=pta.task_id
-        GROUP BY p.name";
+        GROUP BY p.name
+        ORDER BY time_spent DESC";
     }
 
     $result = $conn->query($sql);
     echo "<tbody>";
     while ($row = $result->fetch_assoc()) {
+        $time_spent = $row["time_spent"];
         echo "<tr>";
         echo "<td>" . $row["name"] . "</a></td>";
-        echo "<td>" . $row["time_spent"] . "</td>";
+        echo "<td>" . $time_spent . "</td>";
         echo "</tr>";
+        $sum_time += $time_spent;
     }
+    echo "<tbody class='table-group-divider'>";
+    echo "<tr>";
+    echo "<td><b>Suma</b></td>";
+    echo "<td><b>" . $sum_time . "</b></td>";
+    echo "</tr>";
     echo "</tbody>";
     echo "</table>";
 }

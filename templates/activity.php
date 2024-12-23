@@ -19,7 +19,7 @@
         <div class="row mb-5">
             <div class="col-lg-6">
                 <?php 
-                    $types = array("Tydzień", "Miesiąc", "Od początku");
+                    $types = array("Tydzień", "Miesiąc", "Rok", "Od początku");
                     foreach ($types as $type) {
                         echo "<h4 class='mb-3'>$type</h4>";
                         display_productivity_stats($conn, $type);
