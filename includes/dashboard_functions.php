@@ -18,6 +18,109 @@ function format_money($number) {
     return "$first_part $last_part";
 }
 
+
+function get_total_read_books($conn) {
+    $result = $conn->query("SELECT COUNT(*) FROM books WHERE finished IS NOT NULL");
+    $total = $result->fetch_row();
+    $total = $total[0];
+    return $total;
+}
+
+
+function get_total_movies($conn) {
+    $result = $conn->query("SELECT COUNT(*) FROM movies WHERE watched = 1");
+    $total = $result->fetch_row();
+    $total = $total[0];
+    return $total;
+}
+
+
+function get_total_wealth($conn) {
+    $sql = "
+    SELECT ROUND(SUM(s.total), 2) AS total_money
+    FROM (
+        SELECT SUM((((financial_assets.buy_quantity) * financial_assets.buy_price) - financial_assets.buy_commission)) AS total
+            FROM financial_assets
+            WHERE (financial_assets.active = true) AND retirement = 0
+        UNION
+        SELECT SUM(cash.value) AS total
+            FROM cash
+            WHERE name NOT IN ('PPK', 'IKZE')
+        UNION
+        SELECT c.value * er.rate AS total 
+            FROM crypto c 
+            JOIN exchange_rates er ON c.name = er.currency 
+            WHERE er.currency = 'BTC' 
+    ) s;";
+
+    $result = $conn->query($sql);
+    $total = $result->fetch_row();
+    $total = $total[0];
+    return $total;
+}
+
+function invested_assets_current($conn) {
+    $total_wealth = get_total_wealth($conn);
+    $result = $conn->query("
+    SELECT SUM(x.total) AS total
+    FROM (
+        SELECT sum((((financial_assets.buy_quantity) * financial_assets.buy_price) - financial_assets.buy_commission)) AS total
+        FROM financial_assets
+        WHERE (financial_assets.active = true) AND financial_assets.retirement = false
+
+        UNION
+        
+        SELECT c.value * er.rate AS total 
+            FROM crypto c 
+            JOIN exchange_rates er ON c.name = er.currency 
+            WHERE er.currency = 'BTC' 
+        ) x
+    ");
+    $total = $result->fetch_row();
+    $total_invested = $total[0];
+    $perc_invested = round($total_invested / $total_wealth * 100, 2);
+    return $perc_invested;
+}
+
+
+function invested_assets_retirement($conn) {
+    $retirement_total = get_retirement_total($conn);
+    $retirement_cash = get_cash($conn, "retirement");
+    $percent = round(($retirement_total - $retirement_cash) / $retirement_total * 100, 2);
+    return $percent;
+}
+
+
+function get_retirement_total($conn) {
+    $result = $conn->query("
+    SELECT SUM(x.value) value FROM 
+    (
+        SELECT buy_quantity * buy_price value FROM financial_assets WHERE retirement = 1 AND active = 1
+        UNION
+        SELECT value FROM cash WHERE name IN ('PPK', 'IKZE')
+    ) x
+    ");
+    $total = $result->fetch_row();
+    $retirement_assets = $total[0];
+    return $retirement_assets;
+}
+
+
+function get_cash($conn, $type) {
+    if ($type == "current") {
+        $sql = "SELECT SUM(value) FROM cash WHERE name NOT IN ('IKZE', 'PPK')";
+    } else {
+        $sql = "SELECT value FROM cash WHERE name = 'IKZE'";
+    }
+    $result = $conn->query($sql);
+    $total = $result->fetch_row();
+    $total = $total[0];
+    return $total;
+}
+
+
+/* Funkcje dotyczące pisania i wydatków, na razie zrezygnowałem z wyświetlania tych wartości
+
 function get_total_writing($conn) {
     $sql = "SELECT round(sum(pta.time_spent)/60/60)
         FROM projects p 
@@ -30,6 +133,7 @@ function get_total_writing($conn) {
     return $writing_time;
 }
 
+
 function get_writing_average($conn) {
     # zwraca średnią dzienną ilość czasu pisania w minutach
     
@@ -38,6 +142,7 @@ function get_writing_average($conn) {
     $avg_minutes = $writing_avg[0];
     return floor($avg_minutes);
 }
+
 
 function writing_left_to_mastery($conn) {
     $result = $conn->query("SELECT (10000 * 60 * 60 - SUM(writing_time)) / 60 FROM writing");
@@ -53,6 +158,7 @@ function writing_left_to_mastery($conn) {
     return "$years lat i $days dni";
 }
 
+
 function writing_time_spent($conn) {
     $result = $conn->query("SELECT COUNT(DISTINCT(writing_date)) + 400 FROM `writing`");
     $writing_days = $result->fetch_row();
@@ -62,54 +168,6 @@ function writing_time_spent($conn) {
     return "$years lata i $days dni";
 }
 
-function get_total_read_books($conn) {
-    $result = $conn->query("SELECT COUNT(*) FROM books WHERE finished IS NOT NULL");
-    $total = $result->fetch_row();
-    $total = $total[0];
-    return $total;
-}
-
-function get_total_movies($conn) {
-    $result = $conn->query("SELECT COUNT(*) FROM movies WHERE watched = 1");
-    $total = $result->fetch_row();
-    $total = $total[0];
-    return $total;
-}
-
-function get_total_wealth($conn) {
-    $sql = "
-    SELECT ROUND(SUM(s.total), 2) AS total_money
-    FROM (
-        SELECT SUM((((financial_assets.buy_quantity) * financial_assets.buy_price) - financial_assets.buy_commission)) AS total
-            FROM financial_assets
-            WHERE (financial_assets.active = true)
-        UNION
-        SELECT SUM(cash.value) AS total
-            FROM cash
-        UNION
-        SELECT c.value * er.rate AS total 
-            FROM crypto c 
-            JOIN exchange_rates er ON c.name = er.currency 
-            WHERE er.currency = 'BTC' 
-    ) s;";
-
-    $result = $conn->query($sql);
-    $total = $result->fetch_row();
-    $total = $total[0];
-    return $total;
-}
-
-function invested_assets_percent($conn) {
-    $total_wealth = get_total_wealth($conn);
-    $result = $conn->query("
-    SELECT sum((((financial_assets.buy_quantity) * financial_assets.buy_price) - financial_assets.buy_commission)) AS total
-    FROM financial_assets
-    WHERE (financial_assets.active = true)");
-    $total = $result->fetch_row();
-    $total_invested = $total[0];
-    $perc_invested = round($total_invested / $total_wealth * 100, 2);
-    return $perc_invested;
-}
 
 function income_last_month($conn) {
     if (idate("m") != 1) {
@@ -130,5 +188,6 @@ function last_month_spending($conn) {
     $total = $total[0];
     return $total;
 }
+*/
 
 ?>
