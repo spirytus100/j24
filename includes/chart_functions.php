@@ -86,7 +86,7 @@ function income_expenses($conn) {
 
     $sql_expenses = "SELECT CONCAT(YEAR(expense_date), '-', MONTH(expense_date)) expenses_month, SUM(quantity * price) expenses_value
     FROM expenses
-    WHERE expense_date BETWEEN DATE_SUB(CURRENT_DATE, INTERVAL 1 YEAR) AND CURRENT_DATE
+    WHERE expense_date BETWEEN '2022-10-01' AND CURRENT_DATE
     GROUP BY YEAR(expense_date), MONTH(expense_date)";
 
     $result = $conn->query($sql_expenses);
@@ -97,7 +97,7 @@ function income_expenses($conn) {
 
     $sql_income = "SELECT CONCAT(YEAR(income_date), '-', MONTH(income_date)) income_month, SUM(value) income_value
     FROM income
-    WHERE income_date BETWEEN DATE_SUB(CURRENT_DATE, INTERVAL 1 YEAR) AND CURRENT_DATE
+    WHERE income_date BETWEEN '2022-10-01' AND CURRENT_DATE
     GROUP BY YEAR(income_date), MONTH(income_date)";
 
     $result = $conn->query($sql_income);

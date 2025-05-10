@@ -58,12 +58,6 @@ function display_sidebar() {
         <a class='nav-link' aria-current='page' href='/'>Panel główny</a>
       </li>
       <li class='nav-item'>
-        <a class='nav-link' href='/tasks/'>Zadania</a>
-      </li>
-      <li class='nav-item'>
-        <a class='nav-link' href='/activity/new'>Nowa aktywność</a>
-      </li>
-      <li class='nav-item'>
         <a class='nav-link' href='/wishlist/'>Nowe życzenie</a>
       </li>
       <li class='nav-item'>
@@ -99,12 +93,6 @@ function display_sidebar() {
     <ul class='nav flex-column'>
       <li class='nav-item'>
         <a class='nav-link' aria-current='page' href='/'>Panel główny</a>
-      </li>
-      <li class='nav-item'>
-        <a class='nav-link active' href='/tasks/'>Zadania</a>
-      </li>
-      <li class='nav-item'>
-        <a class='nav-link active' href='/activity/'>Produktywność</a>
       </li>
       <li class='nav-item'>
         <a class='nav-link' href='/budget/'>Budżet</a>
