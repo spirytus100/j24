@@ -28,6 +28,10 @@
                     <input class="form-control" type="number" name="price" min="0.00" max="99999.99" step="0.01" required>
                 </div>
                 <div class="mb-3">
+                    <label class="form-label" for="quantity">Ilość</label><br>
+                    <input class="form-control" type="number" name="quantity" min="1" max="99" step="1" value="1" required>
+                </div>
+                <div class="mb-3">
                     <label class="form-label" for="category">Kategoria</label>
                     <input class="form-control" list="categories" name="category" required>
                 </div>

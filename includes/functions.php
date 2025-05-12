@@ -158,6 +158,8 @@ function display_expenses_table($conn) {
         <th scope='col' style='color: black'>Przedmiot</th>
         <th scope='col' style='color: black'>Kategoria</th>
         <th scope='col' style='color: black'>Cena</th>
+        <th scope='col' style='color: black'>Ilość</th>
+        <th scope='col' style='color: black'>Suma</th>
         <th scope='col' style='color: black'>Firma</th>
         </tr>
         </thead>";
@@ -171,6 +173,8 @@ function display_expenses_table($conn) {
         echo "<td>" . $row["item"] . "</td>";
         echo "<td>" . $row["category"] . "</td>";
         echo "<td>" . $row["price"] . "</td>";
+        echo "<td>" . $row["quantity"] . "</td>";
+        echo "<td>" . round($row["price"] * $row["quantity"], 2) . "</td>";
         echo "<td>" . $row["company"] . "</td>";
         echo "</tr>";
     }
