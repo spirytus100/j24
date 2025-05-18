@@ -152,4 +152,21 @@ function get_project_tasks($conn, $project_slug) {
 
 }
 
+
+function get_items_for_category($conn, $category) {
+    $result = $conn->query("SELECT id FROM expense_categories where name = '$category'");
+    $value = $result->fetch_row();
+    $category_id = $value[0];
+
+    $main_arr = array();
+    $sub_arr = array();
+    $result = $conn->query("SELECT name FROM expenses_items WHERE expense_categories_id = $category_id");
+    while ($row = $result->fetch_assoc()) {
+        $item = $row["name"];
+        array_push($sub_arr, $item);
+    }
+    $main_arr["items"] = $sub_arr;
+    return $main_arr;
+}
+
 ?>

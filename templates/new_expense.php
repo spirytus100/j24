@@ -21,8 +21,10 @@
             <form class="form-control" id="expense_form" method="post" action="/../forms/add_expense.php">
                 <div class="mb-3 mt-3">
                     <label class="form-label" for="item">Przedmiot</label>
-                    <input class="form-control" type="text" name="item" required>
+                    <input class="form-control" list="items" type="text" name="item" required>
                 </div>
+                <datalist id="items">
+                </datalist>
                 <div class="mb-3">
                     <label class="form-label" for="price">Cena</label><br>
                     <input class="form-control" type="number" name="price" min="0.00" max="99999.99" step="0.01" required>
@@ -33,7 +35,7 @@
                 </div>
                 <div class="mb-3">
                     <label class="form-label" for="category">Kategoria</label>
-                    <input class="form-control" list="categories" name="category" required>
+                    <input class="form-control" list="categories" name="category" id="category" onchange="update_items()" required>
                 </div>
                 <datalist id="categories">
                     <?php get_expense_categories($conn); ?>
@@ -53,5 +55,32 @@
     </main>
   </div>
 </div>
+
+<script>
+
+function update_items() {  
+  const category = document.getElementById("category").value;
+  var xmlhttp = new XMLHttpRequest();
+  xmlhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+          data = JSON.parse(this.responseText);
+          var dbitems = data.items;
+          var datalist = document.getElementById("items");
+          datalist.innerHTML = "";
+
+          dbitems.forEach(item => {
+            const option = document.createElement("option");
+            option.value = item;
+            option.textContent = item;
+            datalist.appendChild(option);
+          });
+
+      }
+  }
+  xmlhttp.open("GET", "/../../data.php?type=expenses&category=" + category);
+  xmlhttp.send();
+}
+
+</script>
 </body>
 </html>

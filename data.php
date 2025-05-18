@@ -27,11 +27,25 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
             $data = income_expenses($conn);
             echo json_encode($data);
 
+        } else if ($_GET["type"] == "expenses") {
+            $category = $_GET["category"];
+            $data = get_items_for_category($conn, $category);
+            echo json_encode($data);
+
         } else if ($_GET["type"] == "activity") {
             $project_slug = $_GET["project"];
             $data = get_project_tasks($conn, $project_slug);
             echo json_encode($data);
+
+        } else {
+            http_response_code(422);
         }
+
+    } else {
+        http_response_code(422);
     }
+    
+} else {
+    http_response_code(405);
 }
 ?>
