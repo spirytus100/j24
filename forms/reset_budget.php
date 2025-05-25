@@ -1,4 +1,6 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 include $_SERVER["DOCUMENT_ROOT"] . "/includes/login_redirect_form.php";
 include $_SERVER["DOCUMENT_ROOT"]."/includes/config.php";
 
@@ -19,6 +21,16 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
     $stmt = $conn->prepare("UPDATE budget SET budget_cost = 0.00, real_cost = 0.00, comments = NULL");
     $stmt->execute();
+
+    # dopisanie wcześniej zidentyfikowanych potrzeb do nowego budżetu
+    $result = $conn->query("SELECT category, SUM(price) price FROM needs GROUP BY category");
+    while ($row = $result->fetch_assoc()) {
+        $category = $row["category"];
+        $price = $row["price"];
+
+        $conn->query("UPDATE budget SET budget_cost = $price WHERE category = '$category'");
+    }
+
     header("Location: /budget/new");
 
 }

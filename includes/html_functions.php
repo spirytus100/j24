@@ -58,10 +58,13 @@ function display_sidebar() {
         <a class='nav-link' aria-current='page' href='/'>Panel główny</a>
       </li>
       <li class='nav-item'>
-        <a class='nav-link' href='/wishlist/'>Nowe życzenie</a>
+        <a class='nav-link' href='/expenses/new'>Nowy wydatek</a>
       </li>
       <li class='nav-item'>
-        <a class='nav-link' href='/expenses/new'>Nowy wydatek</a>
+        <a class='nav-link' href='/needs/'>Nowa potrzeba</a>
+      </li>
+      <li class='nav-item'>
+        <a class='nav-link' href='/wishlist/'>Nowe życzenie</a>
       </li>
       <li class='nav-item'>
         <a class='nav-link' href='/income/new'>Nowy dochód</a>
@@ -79,10 +82,17 @@ function display_sidebar() {
         <a class='nav-link' href='/books/new'>Nowa książka</a>
       </li>
       <li class='nav-item'>
-        <a class='nav-link' href='/writing/new'>Nowe pisanie</a>
-      </li>
-      <li class='nav-item'>
         <a class='nav-link' href='/budget/'>Budżet</a>
+      </li>
+      <li class='nav-item dropdown'>
+        <a class='nav-link dropdown-toggle' data-bs-toggle='dropdown' href='#' role='button' aria-expanded='false'>Tabele</a>
+        <ul class='dropdown-menu'>
+          <li><a class='dropdown-item' href='/expenses/'>Wydatki</a></li>
+          <li><a class='dropdown-item' href='/income/'>Dochody</a></li>
+          <li><a class='dropdown-item' href='/movies/'>Filmy</a></li>
+          <li><a class='dropdown-item' href='/books/'>Książki</a></li>
+          <li><a class='dropdown-item' href='/assets/'>Inwestycje</a></li>
+        </ul>
       </li>
     </ul>
   </div>
@@ -96,6 +106,9 @@ function display_sidebar() {
       </li>
       <li class='nav-item'>
         <a class='nav-link' href='/budget/'>Budżet</a>
+      </li>
+      <li class='nav-item'>
+        <a class='nav-link' href='/needs/'>Potrzeby</a>
       </li>
       <li class='nav-item'>
         <a class='nav-link' href='/wishlist/'>Lista życzeń</a>
@@ -121,10 +134,6 @@ function display_sidebar() {
       <li class='nav-item dropdown'>
         <a class='nav-link dropdown-toggle' data-bs-toggle='dropdown' href='#' role='button' aria-expanded='false'>Formularze</a>
         <ul class='dropdown-menu'>
-          <li><a class='dropdown-item' href='/writing/new'>Nowe pisanie</a></li>
-          <li><a class='dropdown-item' href='/activity/new'>Nowa aktywność</a></li>
-          <li><hr class='dropdown-divider'></li>
-          <li><a class='dropdown-item' href='/tasks/new'>Nowe zadanie</a></li>
           <li><a class='dropdown-item' href='/expenses/new'>Nowy wydatek</a></li>
           <li><a class='dropdown-item' href='/income/new'>Nowy dochód</a></li>
           <li><a class='dropdown-item' href='/movies/new'>Nowy film</a></li>

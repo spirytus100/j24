@@ -28,19 +28,12 @@ function get_expense_categories($conn) {
 
 
 function new_budget_form($conn) {
-    $result = $conn->query("SELECT id, name FROM expense_categories");
+    $result = $conn->query("SELECT category, ROUND(budget_cost) budget_cost FROM budget");
     while ($row = $result->fetch_assoc()) {
+        $budget_cost = $row["budget_cost"];
         echo "<div class='input-group'>";
-        echo "<span class='input-group-text'>".$row["name"]."</span>";
-
-        # oblicz darowiznę na podstawie ostatniej pensji
-        if ($row["name"] == "darowizna") {
-            $prepopulated_value = get_donation_value($conn);
-        } else {
-            $prepopulated_value = 0;
-        }
-        
-        echo "<input class='form-control budget-input' id='budget' type='number' name='".$row["name"]."' min='0' max='99999' value='$prepopulated_value'>";
+        echo "<span class='input-group-text'>".$row["category"]."</span>";
+        echo "<input class='form-control budget-input' id='budget' type='number' name='".$row["name"]."' min='0' max='99999' value='$budget_cost'>";
         echo "</div>";
     }
 }
@@ -540,6 +533,31 @@ function display_wish_list($conn) {
         echo "<li class='list-group-item mb-1'><a href='/../forms/remove_wish.php?id=$wish_id'><i class='fa-solid fa-xl fa-xmark text-danger me-3'></i></a>" . $row["item"] . "</li>";
     }
     echo "</ul>";
+}
+
+
+function display_needs($conn) {
+    $result = $conn->query("SELECT id, name, price FROM needs");
+    echo "<table class='table'>";
+    echo "<thead>";
+    echo "<tr>";
+    echo "<th>Przedmiot</th>";
+    echo "<th>Cena</th>";
+    echo "<th></th>";
+    echo "</tr>";
+    echo "</thead>";
+    echo "<tbody>";
+
+    while ($row = $result->fetch_assoc()) {
+        $need_id = $row["id"];
+        echo "<tr>";
+        echo "<td>" . $row["name"] . "</li>";
+        echo "<td>" . $row["price"] . "</li>";
+        echo "<td><a href='/../forms/remove_need.php?id=$need_id'><i class='fa-solid fa-xl fa-xmark text-danger me-3'></i></a></td>";
+        echo "</tr>";
+    }
+    echo "</tbody>";
+    echo "</table>";
 }
 
 
