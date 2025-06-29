@@ -33,7 +33,7 @@ function new_budget_form($conn) {
         $budget_cost = $row["budget_cost"];
         echo "<div class='input-group'>";
         echo "<span class='input-group-text'>".$row["category"]."</span>";
-        echo "<input class='form-control budget-input' id='budget' type='number' name='".$row["name"]."' min='0' max='99999' value='$budget_cost'>";
+        echo "<input class='form-control budget-input' id='budget' type='number' name='".$row["category"]."' min='0' max='99999' value='$budget_cost'>";
         echo "</div>";
     }
 }

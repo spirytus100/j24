@@ -18,9 +18,11 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
     $stmt = $conn->prepare("INSERT INTO budget_results (month_year, budget, expenses, overspending) VALUES (?, ?, ?, ?)");
     $stmt->bind_param("sddd", $month_year, $budget, $real_cost, $overspending);
     $stmt->execute();
+    $stmt->close();
 
     $stmt = $conn->prepare("UPDATE budget SET budget_cost = 0.00, real_cost = 0.00, comments = NULL");
     $stmt->execute();
+    $stmt->close();
 
     # dopisanie wcześniej zidentyfikowanych potrzeb do nowego budżetu
     $result = $conn->query("SELECT category, SUM(price) price FROM needs GROUP BY category");
@@ -28,7 +30,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
         $category = $row["category"];
         $price = $row["price"];
 
-        $conn->query("UPDATE budget SET budget_cost = $price WHERE category = '$category'");
+         $conn->query("UPDATE budget SET budget_cost = $price WHERE category = '$category'");
     }
 
     header("Location: /budget/new");
