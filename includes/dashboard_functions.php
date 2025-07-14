@@ -119,6 +119,26 @@ function get_cash($conn, $type) {
 }
 
 
+function get_total_learning($conn) {
+    $sql = "SELECT FLOOR(SUM(learning_time)/60/60), ROUND(SUM(learning_time)/60/60 MOD 1 * 60) FROM learning";
+    $result = $conn->query($sql);
+    $learning_time = $result->fetch_row();
+    $hours = $learning_time[0];
+    $minutes = $learning_time[1];
+    return "$hours godzin $minutes minut";
+}
+
+
+function get_learning_average($conn) {
+    # zwraca średnią dzienną ilość czasu nauki w minutach
+    
+    $result = $conn->query("SELECT FLOOR(SUM(learning_time) / COUNT(DISTINCT(learning_date)) / 60) FROM learning;");
+    $learning_avg = $result->fetch_row();
+    $avg_minutes = $learning_avg[0];
+    return "$avg_minutes minut";
+}
+
+
 /* Funkcje dotyczące pisania i wydatków, na razie zrezygnowałem z wyświetlania tych wartości
 
 function get_total_writing($conn) {

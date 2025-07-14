@@ -19,6 +19,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         if (password_verify($password, $passwd_hash)) {
             $_SESSION['login'] = true;
             header("Location: /");
+        } else {
+            http_response_code(401);
         }
 
     } else {

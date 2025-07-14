@@ -169,4 +169,25 @@ function get_items_for_category($conn, $category) {
     return $main_arr;
 }
 
+
+function learning_data($conn) {
+    $main_arr = array();
+    $dates = array();
+    $amounts = array();
+    $result = $conn->query("SELECT learning_date, ROUND(SUM(learning_time)/60/60, 2) learning_time
+    FROM learning
+    WHERE learning_date BETWEEN DATE_SUB(CURRENT_DATE, INTERVAL 180 DAY) AND CURRENT_DATE GROUP BY learning_date ORDER BY learning_date");
+    while ($row = $result->fetch_assoc()) {
+        array_push($dates, $row["learning_date"]);
+        array_push($amounts, $row["learning_time"]);
+    }
+    $main_arr["x"] = $dates;
+    $main_arr["y"] = $amounts;
+    $moving_average = new s\MovingAverage();
+    $moving_average->setPeriod(7);
+    $mavg = $moving_average->getCalculatedFromArray(array_map("floatval", $amounts));
+    $main_arr["avg"] = $mavg;
+    return $main_arr;
+}
+
 ?>

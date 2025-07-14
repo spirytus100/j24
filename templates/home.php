@@ -78,6 +78,21 @@
         </div>
       </div>
 
+      <div class="row mb-3">
+        <div class="col">
+          <div class="bg-warning p-3 text-center text-black shadow mb-3 mb-sm-0">
+            <h5>Nauka w sumie</h5>
+            <h2><b><?php echo get_total_learning($conn); ?></b></h2>
+          </div>
+        </div>
+        <div class="col">
+          <div class="bg-warning p-3 text-center text-black shadow">
+            <h5>Nauka średnio</h5>
+            <h2><b><?php echo get_learning_average($conn); ?></b></h2>
+          </div>
+        </div>
+      </div>
+
     </main>
   </div>
 </div>

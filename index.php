@@ -151,6 +151,14 @@ if ($request_path == "") {
     } else if (preg_match("#^activity/new/?$#", $request_path)) {
         include "templates/activity_new.php";
 
+    # path '/learning/new'
+    } else if (preg_match("#^learning/new/?$#", $request_path)) {
+        include "templates/new_learning.php";
+
+    # path '/charts/learning'
+    } else if (preg_match("#^charts/learning/?$#", $request_path)) {
+        include "templates/charts/learning.php";
+
     } else {
         http_response_code(404);
         die();

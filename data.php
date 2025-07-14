@@ -19,6 +19,10 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
             $data = writing_data_month($conn);
             echo json_encode($data);
 
+        } else if ($_GET["type"] == "learning") {
+            $data = learning_data($conn);
+            echo json_encode($data);
+
         } else if ($_GET["type"] == "assets") {
             $data = assets_data($conn);
             echo json_encode($data);

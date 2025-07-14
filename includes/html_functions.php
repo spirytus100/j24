@@ -51,6 +51,8 @@ function display_footer() {
 }
 
 function display_sidebar() {
+  # menu smartfona
+
   echo "<nav id='sidebarMenu' class='col-md-3 col-lg-2 d-sm-none bg-light sidebar'>
   <div class='position-sticky pt-3'>
     <ul class='nav flex-column'>
@@ -65,6 +67,9 @@ function display_sidebar() {
       </li>
       <li class='nav-item'>
         <a class='nav-link' href='/wishlist/'>Nowe życzenie</a>
+      </li>
+      <li class='nav-item'>
+        <a class='nav-link' href='/learning/new/'>Nauka</a>
       </li>
       <li class='nav-item'>
         <a class='nav-link' href='/income/new'>Nowy dochód</a>
@@ -98,6 +103,8 @@ function display_sidebar() {
   </div>
   </nav>";
 
+  # menu komputera
+
   echo "<nav id='sidebarMenu' class='col-md-3 col-lg-2 d-none d-sm-block bg-light sidebar'>
   <div class='position-sticky pt-3'>
     <ul class='nav flex-column'>
@@ -115,6 +122,9 @@ function display_sidebar() {
       </li>
       <li class='nav-item'>
         <a class='nav-link' href='/expenses/'>Wydatki</a>
+      </li>
+      <li class='nav-item'>
+        <a class='nav-link' href='/learning/new/'>Nauka</a>
       </li>
       <li class='nav-item'>
         <a class='nav-link' href='/income/'>Dochody</a>
@@ -144,7 +154,7 @@ function display_sidebar() {
       <li class='nav-item dropdown'>
         <a class='nav-link dropdown-toggle' data-bs-toggle='dropdown' href='#' role='button' aria-expanded='false'>Wykresy</a>
         <ul class='dropdown-menu'>
-          <li><a class='dropdown-item' href='/charts/writing'>Pisanie</a></li>
+          <li><a class='dropdown-item' href='/charts/learning'>Nauka</a></li>
           <li><a class='dropdown-item' href='/charts/assets'>Inwestycje</a></li>
           <li><a class='dropdown-item' href='/charts/savings'>Oszczędności</a></li>
         </ul>
