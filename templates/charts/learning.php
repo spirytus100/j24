@@ -2,7 +2,7 @@
 <!doctype html>
 <html class="h-100" lang="pl">
   <head>
-    <?php display_head("Nauki polityczne", $elements); ?>
+    <?php display_head("Nauka", $elements); ?>
     <script src="https://cdn.plot.ly/plotly-2.25.2.min.js" charset="utf-8"></script>
   </head>
 <body class="d-flex flex-column h-100"> 
