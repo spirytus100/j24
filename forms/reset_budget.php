@@ -1,6 +1,5 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+
 include $_SERVER["DOCUMENT_ROOT"] . "/includes/login_redirect_form.php";
 include $_SERVER["DOCUMENT_ROOT"]."/includes/config.php";
 
@@ -30,16 +29,8 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
     $stmt = $conn->prepare("UPDATE budget SET budget_cost = 0.00, real_cost = 0.00, comments = NULL");
     $stmt->execute();
     $stmt->close();
-/*
-    # dopisanie wcześniej zidentyfikowanych potrzeb do nowego budżetu
-    $result = $conn->query("SELECT category, SUM(price) price FROM needs GROUP BY category");
-    while ($row = $result->fetch_assoc()) {
-        $category = $row["category"];
-        $price = $row["price"];
 
-         $conn->query("UPDATE budget SET budget_cost = $price WHERE category = '$category'");
-    }
-*/
+    # dopisanie wcześniej zidentyfikowanych potrzeb do nowego budżetu
     $categories = array();
     $result = $conn->query("SELECT name, category, price FROM needs");
     while ($row = $result->fetch_assoc()) {
@@ -54,6 +45,14 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
         }
         array_push($categories, $category);
     }
+
+    # dopisanie zsumowanej kwoty subskrypcji do nowego budżetu
+    $cursor = $conn->query("SELECT CEIL(SUM(price)) FROM subscriptions WHERE frequency = 'miesiąc'");
+    $result = $cursor->fetch_row();
+    $subscriptions_price = $result[0];
+
+    $conn->query("UPDATE budget SET budget_cost = $subscriptions_price WHERE category = 'rozrywka'");
+
 
     header("Location: /budget/new");
 
