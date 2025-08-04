@@ -143,6 +143,10 @@ if ($request_path == "") {
     } else if (preg_match("#^needs/?$#", $request_path)) {
         include "templates/needs.php";
 
+    # path '/todo/'
+    } else if (preg_match("#^todo/?$#", $request_path)) {
+        include "templates/todo.php";
+
     # path '/activity/'
     } else if (preg_match("#^activity/?$#", $request_path)) {
         include "templates/activity.php";

@@ -2,7 +2,7 @@
 <!doctype html>
 <html class="h-100" lang="pl">
   <head>
-    <?php display_head("Nauki polityczne", $elements); ?>
+    <?php display_head("Nauka", $elements); ?>
   </head>
 <body class="d-flex flex-column h-100">
 <?php display_header(); ?>

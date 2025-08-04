@@ -561,6 +561,17 @@ function display_needs($conn) {
 }
 
 
+function display_todo($conn) {
+    $result = $conn->query("SELECT id, task FROM todo");
+    echo "<ul class='list-group'>";
+    while ($row = $result->fetch_assoc()) {
+        $todo_id = $row["id"];
+        echo "<li class='list-group-item mb-1'><a href='/../forms/remove_todo.php?id=$todo_id'><i class='fa-solid fa-xl fa-xmark text-danger me-3'></i></a>" . $row["task"] . "</li>";
+    }
+    echo "</ul>";
+}
+
+
 function get_projects($conn) {
     $result = $conn->query("SELECT name FROM projects");
 
