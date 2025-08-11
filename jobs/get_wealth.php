@@ -25,7 +25,7 @@ $current_wealth = $data[0];
 
 echo "Got total wealth: $current_wealth<br>";
 
-$conn->query("INSERT INTO wealth_increase (wealth_date, value) VALUES (CURRENT_DATE, $current_wealth)");
+$conn->query("INSERT INTO wealth_increase (wealth_date, value) VALUES (DATE_SUB(CURRENT_DATE, INTERVAL 1 DAY), $current_wealth)");
 $conn->close();
 
 exit("Succesfuly updated");
