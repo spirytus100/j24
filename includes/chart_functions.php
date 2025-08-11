@@ -190,4 +190,21 @@ function learning_data($conn) {
     return $main_arr;
 }
 
+
+function get_wealth_increase_data($conn) {
+    $main_arr = array();
+    $dates = array();
+    $amounts = array();
+
+    $sql = "SELECT CONCAT(MONTH(wealth_date), '-', YEAR(wealth_date)) wealth_date, value FROM wealth_increase";
+    $result = $conn->query($sql);
+    while ($row = $result->fetch_assoc()) {
+        array_push($dates, $row["wealth_date"]);
+        array_push($amounts, $row["value"]);
+    }
+    $main_arr["x"] = $dates;
+    $main_arr["y"] = $amounts;
+    return $main_arr;
+}
+
 ?>

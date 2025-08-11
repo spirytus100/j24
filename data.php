@@ -41,6 +41,10 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
             $data = get_project_tasks($conn, $project_slug);
             echo json_encode($data);
 
+        } else if ($_GET["type"] == "wealth") {
+            $data = get_wealth_increase_data($conn);
+            echo json_encode($data);
+
         } else {
             http_response_code(422);
         }

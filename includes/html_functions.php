@@ -163,6 +163,7 @@ function display_sidebar() {
           <li><a class='dropdown-item' href='/charts/learning'>Nauka</a></li>
           <li><a class='dropdown-item' href='/charts/assets'>Inwestycje</a></li>
           <li><a class='dropdown-item' href='/charts/savings'>Oszczędności</a></li>
+          <li><a class='dropdown-item' href='/charts/wealth'>Majątek</a></li>
         </ul>
       </li>
     </ul>
