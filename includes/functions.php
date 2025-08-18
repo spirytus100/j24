@@ -562,7 +562,7 @@ function display_needs($conn) {
 
 
 function display_todo($conn) {
-    $result = $conn->query("SELECT id, task FROM todo");
+    $result = $conn->query("SELECT id, task FROM todo ORDER BY priority");
     echo "<ul class='list-group'>";
     while ($row = $result->fetch_assoc()) {
         $todo_id = $row["id"];

@@ -23,9 +23,22 @@
             <div class="row mb-5">
                 <div class="col-lg-6">
                     <form class="form-control" id="todo_form" method="post" action="/../forms/add_todo.php">
-                        <div class="mb-3 mt-3">
+                        <div class="mb-4 mt-3">
                             <label class="form-label" for="task">Zadanie</label>
                             <input class="form-control" type="text" name="task" required>
+                        </div>
+                        <div>Priorytet</div>
+                        <div class="form-check mt-3 mb-2">
+                            <input type="radio" class="form-check-input" id="radio1" name="priority" value="1">Wysoki
+                            <label class="form-check-label" for="radio1">
+                        </div>
+                        <div class="form-check mb-2">
+                            <input type="radio" class="form-check-input" id="radio2" name="priority" value="2" checked>Średni
+                            <label class="form-check-label" for="radio2">
+                        </div>
+                        <div class="form-check mb-4">
+                            <input type="radio" class="form-check-input" id="radio3" name="priority" value="3">Niski
+                            <label class="form-check-label" for="radio3">
                         </div>
                         <button class="btn btn-primary" type="submit" form="todo_form">Zapisz</button>
                     </form>
