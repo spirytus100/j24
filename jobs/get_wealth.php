@@ -1,6 +1,5 @@
 <?php
-#require "/home/jovhmax/www/includes/config.php";
-include $_SERVER["DOCUMENT_ROOT"] . "/includes/config.php";
+require "/home/jovhmax/www/includes/config.php";
 
 $sql = "
     SELECT ROUND(SUM(s.total), 2) AS total_money
