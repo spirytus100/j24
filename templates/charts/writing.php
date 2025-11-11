@@ -3,7 +3,7 @@
 <html class="h-100" lang="pl">
   <head>
     <?php display_head("Pisanie", $elements); ?>
-    <script src="https://cdn.plot.ly/plotly-2.25.2.min.js" charset="utf-8"></script>
+    <script src="https://cdn.plot.ly/plotly-3.1.0.min.js" charset="utf-8"></script>
   </head>
 <body class="d-flex flex-column h-100"> 
 <?php display_header(); ?>
