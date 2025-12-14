@@ -22,13 +22,13 @@
         <div class="col">
           <div class="bg-info p-3 text-center text-dark shadow">
             <h5>Majątek</h5>
-            <h2><b><?php echo format_money(get_total_wealth($conn)); ?> zł</b></h2>
+            <h2><b><?php $total_wealth = get_total_wealth($conn); echo format_money($total_wealth); ?> zł</b></h2>
           </div>
         </div>
         <div class="col">
           <div class="bg-success p-3 text-center text-dark shadow">
             <h5>Emerytura</h5>
-            <h2><b><?php echo format_money(get_retirement_total($conn)); ?> zł</b></h2>
+            <h2><b><?php $total_wealth_retirement = get_retirement_total($conn); echo format_money($total_wealth_retirement); ?> zł</b></h2>
           </div>
         </div>
       </div>
@@ -52,13 +52,28 @@
         <div class="col">
           <div class="bg-info p-3 text-center text-dark shadow">
             <h5>Zainwestowane środki</h5>
-            <h2><b><?php echo invested_assets_current($conn); ?> %</b></h2>
+            <h2><b><?php echo str_replace(".", ",", invested_assets_current($conn)); ?> %</b></h2>
           </div>
         </div>
         <div class="col">
           <div class="bg-success p-3 text-center text-dark shadow">
             <h5>Zainwestowane środki emerytura</h5>
-            <h2><b><?php echo invested_assets_retirement($conn); ?> %</b></h2>
+            <h2><b><?php echo str_replace(".", ",", invested_assets_retirement($conn)); ?> %</b></h2>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <div class="col">
+          <div class="bg-info p-3 text-center text-dark shadow">
+            <h5>Procent składany</h5>
+            <h2><b><?php echo format_money(get_compound_interest($total_wealth, $conn)); ?> zł</b></h2>
+          </div>
+        </div>
+        <div class="col">
+          <div class="bg-success p-3 text-center text-dark shadow">
+            <h5>Procent składany emerytura</h5>
+            <h2><b><?php echo format_money(get_compound_interest($total_wealth_retirement, $conn)); ?> zł</b></h2>
           </div>
         </div>
       </div>
@@ -74,21 +89,6 @@
           <div class="bg-light p-3 text-center text-black shadow">
             <h5>Obejrzane filmy</h5>
             <h2><b><?php echo get_total_movies($conn); ?></b></h2>
-          </div>
-        </div>
-      </div>
-
-      <div class="row mb-3">
-        <div class="col">
-          <div class="bg-warning p-3 text-center text-black shadow mb-3 mb-sm-0">
-            <h5>Nauka w sumie</h5>
-            <h2><b><?php echo get_total_learning($conn); ?></b></h2>
-          </div>
-        </div>
-        <div class="col">
-          <div class="bg-warning p-3 text-center text-black shadow">
-            <h5>Nauka średnio</h5>
-            <h2><b><?php echo get_learning_average($conn); ?></b></h2>
           </div>
         </div>
       </div>

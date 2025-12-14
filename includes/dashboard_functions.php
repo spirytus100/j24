@@ -119,6 +119,25 @@ function get_cash($conn, $type) {
 }
 
 
+function get_compound_interest($initial_amount, $conn) {
+    $result = $conn->query("SELECT name, value FROM settings WHERE name LIKE 'compound_interest%'");
+    while($row = $result->fetch_assoc()) {
+        if ($row["name"] == "compound_interest_period_years") {
+            $period = $row["value"];
+        } else {
+            $payment = $row["value"];
+        }
+    } 
+
+    $result = $conn->query("SELECT AVG(interest_rate) FROM financial_assets WHERE interest_rate IS NOT NULL");
+    $row = $result->fetch_row();
+    $interest_rate = $row[0];
+
+    $compound_interest = $initial_amount * pow(1 + $interest_rate, $period) + ($payment * pow(1 + $interest_rate, $period) - 1) / $interest_rate;
+    return round($compound_interest, 2);
+}
+
+/*
 function get_total_learning($conn) {
     $sql = "SELECT FLOOR(SUM(learning_time)/60/60), ROUND(SUM(learning_time)/60/60 MOD 1 * 60) FROM learning";
     $result = $conn->query($sql);
@@ -138,8 +157,7 @@ function get_learning_average($conn) {
     return "$avg_minutes minut";
 }
 
-
-/* Funkcje dotyczące pisania i wydatków, na razie zrezygnowałem z wyświetlania tych wartości
+ Funkcje dotyczące pisania i wydatków, na razie zrezygnowałem z wyświetlania tych wartości
 
 function get_total_writing($conn) {
     $sql = "SELECT round(sum(pta.time_spent)/60/60)
