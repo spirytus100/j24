@@ -305,6 +305,29 @@ function display_books_table($conn) {
 }
 
 
+function display_new_book_form() {
+    echo "<form class='form-control' id='books-prop-form' method='post' action='/../../forms/add_book.php'>
+    <label class='form-label' for='author'>Autor</label><br>
+    <input class='form-control' type='text' name='author'><br>
+    <label class='form-label' for='title'>Tytuł</label><br>
+    <input class='form-control' type='text' name='title' required><br>
+    <label class='form-label' for='published'>Opublikowana</label><br>
+    <input class='form-control' type='number' name='published'><br>
+    <div class='form-check mb-4'>
+        <input class='form-check-input' type='checkbox' id='book-read-check' name='book_read' value='true' onclick='displayFinishedField()'>
+        <label class='form-check-label'>Przeczytana</label>
+    </div>
+    <div id='finished-field' style='display: none'>
+        <label class='form-label' for='finished'>Ukończona</label><br>
+        <input class='form-control' type='date' name='finished'><br>
+    </div>
+    <label class='form-label' for='comments'>Komentarz</label><br>
+    <input class='form-control' type='text' name='comments'><br>
+    <button class='btn btn-primary' type='submit' form='books-prop-form'>Zapisz</button>
+    </form>";
+}
+
+
 function display_movies_table($conn) {
     echo "<table class='table table-striped' id='movies-table' style='width:100%'>
         <thead>
