@@ -5,17 +5,31 @@ function format_money($number) {
 
     if ($number < 1000) {
         return str_replace(".", ",", $money_str);
+
     } else if ($number >= 1000 && $number < 10000) {
         $first_part = substr($money_str, 0, 1);
+        $last_part = substr($money_str, 1, 6);
+        $last_part = str_replace(".", ",", $last_part);
+        return $first_part . " " . $last_part;
+
     } else if ($number >= 10000 && $number < 100000) {
         $first_part = substr($money_str, 0, 2);
+        $last_part = substr($money_str, 2, 8);
+        $last_part = str_replace(".", ",", $last_part);
+        return $first_part . " " . $last_part;
+
     } else if ($number >= 100000 && $number < 1000000) {
         $first_part = substr($money_str, 0, 3);
+        $last_part = substr($money_str, 3, 9);
+        $last_part = str_replace(".", ",", $last_part);
+        return $first_part . " " . $last_part;
+
+    } else if ($number >= 1000000 && $number < 10000000) {
+        $first_part = substr($money_str, 0, 1);
+        $second_part = substr($money_str, 1, 3);
+        $third_part = substr($money_str, 4, 6);
+        return $first_part . " " . $second_part . " " . str_replace(".", ",", $third_part);
     }
-   
-    $last_part = substr($money_str, -6, 6);
-    $last_part = str_replace(".", ",", $last_part);
-    return "$first_part $last_part";
 }
 
 
@@ -56,7 +70,7 @@ function get_total_wealth($conn) {
     $result = $conn->query($sql);
     $total = $result->fetch_row();
     $total = $total[0];
-    return $total;
+    return round($total, 2);
 }
 
 function invested_assets_current($conn) {
@@ -102,7 +116,7 @@ function get_retirement_total($conn) {
     ");
     $total = $result->fetch_row();
     $retirement_assets = $total[0];
-    return $retirement_assets;
+    return round($retirement_assets, 2);
 }
 
 
