@@ -167,6 +167,10 @@ if ($request_path == "") {
     } else if (preg_match("#^charts/wealth/?$#", $request_path)) {
         include "templates/charts/wealth.php";
 
+    # path '/rss_reader/'
+    } else if (preg_match("#^rss_reader/?$#", $request_path)) {
+        include "templates/rss_reader.php";
+
     } else {
         http_response_code(404);
         die();

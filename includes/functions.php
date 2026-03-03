@@ -673,4 +673,28 @@ function display_productivity_stats($conn, $type) {
 }
 
 
+function display_rss($conn) {
+    $result = $conn->query("SELECT * FROM rss_news ORDER BY pub_date DESC");
+
+    echo "<div class='list-group list-group-flush'>";
+    while ($news = $result->fetch_assoc()) {
+        echo "<a href=" . htmlspecialchars($news['link']) . " 
+           class='list-group-item list-group-item-action p-3' 
+           target='_blank' 
+           rel='nofollow'>";
+            
+            echo "<div class='d-flex w-100 justify-content-between align-items-center mb-1'>";
+                echo "<small class='text-primary fw-bold text-uppercase'><i class='bi bi-rss-fill me-1'></i>" . 
+                htmlspecialchars($news['source_name']) . "</small>";
+                echo "<small class='text-muted'>" . date('d.m H:i', strtotime($news['pub_date'])) . 
+                "</small>";
+            echo "</div>";
+            
+            echo "<p class='mb-1 text-dark fw-normal'>" . htmlspecialchars($news['title']) . 
+            "</p>";
+        echo "</a>";
+    }
+    echo "</div>";
+}
+
 ?>

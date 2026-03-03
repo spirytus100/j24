@@ -63,6 +63,9 @@ function display_sidebar() {
         <a class='nav-link' href='/expenses/new'>Nowy wydatek</a>
       </li>
       <li class='nav-item'>
+        <a class='nav-link' href='/rss_reader/'>Aktualności</a>
+      </li>
+      <li class='nav-item'>
         <a class='nav-link' href='/todo/'>Do zrobienia</a>
       </li>
       <li class='nav-item'>
@@ -110,6 +113,9 @@ function display_sidebar() {
     <ul class='nav flex-column'>
       <li class='nav-item'>
         <a class='nav-link' aria-current='page' href='/'>Panel główny</a>
+      </li>
+      <li class='nav-item'>
+        <a class='nav-link' href='/rss_reader/'>Aktualności</a>
       </li>
       <li class='nav-item'>
         <a class='nav-link' href='/budget/'>Budżet</a>
