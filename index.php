@@ -171,6 +171,10 @@ if ($request_path == "") {
     } else if (preg_match("#^rss_reader/?$#", $request_path)) {
         include "templates/rss_reader.php";
 
+    # path '/rss_reader/'
+    } else if (preg_match("#^rss/new/?$#", $request_path)) {
+        include "templates/new_rss_source.php";
+
     } else {
         http_response_code(404);
         die();
