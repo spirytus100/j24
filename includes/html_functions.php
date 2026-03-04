@@ -53,7 +53,7 @@ function display_footer() {
 function display_sidebar() {
   # menu smartfona
 
-  echo "<nav id='sidebarMenu' class='col-md-3 col-lg-2 d-sm-none bg-light sidebar'>
+  echo "<nav id='sidebarMenu' class='col-md-3 col-lg-2 d-sm-none bg-light sidebar collapse'>
   <div class='position-sticky pt-3'>
     <ul class='nav flex-column'>
       <li class='nav-item'>
