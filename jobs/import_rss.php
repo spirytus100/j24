@@ -15,17 +15,18 @@ foreach ($feeds as $sourceName => $url) {
     
     // Ustawiamy timeout, żeby skrypt nie wisiał, jak źródło nie odpowiada
     $context = stream_context_create([
-        'http' => ['timeout' => 5] // 5 sekund na źródło max
+        'http' => ['timeout' => 5],
+        'https' => ['timeout' => 5] // 5 sekund na źródło max
     ]);
 
-    // Pobieramy treść XML
-    $xmlContent = @file_get_contents($url, false, $context);
+    $xmlContent = file_get_contents($url, false, $context);
     
     if (!$xmlContent) {
         continue; // Jeśli błąd, idź do następnego źródła
     }
 
     $rss = @simplexml_load_string($xmlContent);
+
     if (!$rss) {
         continue;
     }
