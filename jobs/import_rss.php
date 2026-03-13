@@ -11,6 +11,8 @@ while ($row = $result->fetch_assoc()) {
     $feeds[$row["name"]] = $row["url"];
 }
 
+echo "Znaleziono " . count($feeds) . " źródeł RSS.\n";
+
 foreach ($feeds as $sourceName => $url) {
     
     // Ustawiamy timeout, żeby skrypt nie wisiał, jak źródło nie odpowiada
@@ -19,15 +21,19 @@ foreach ($feeds as $sourceName => $url) {
         'https' => ['timeout' => 5] // 5 sekund na źródło max
     ]);
 
+    echo "Pobieranie z: $sourceName ($url)\n";
+
     $xmlContent = file_get_contents($url, false, $context);
     
     if (!$xmlContent) {
+        echo "Błąd podczas pobierania z: $sourceName ($url)\n";
         continue; // Jeśli błąd, idź do następnego źródła
     }
 
     $rss = @simplexml_load_string($xmlContent);
 
     if (!$rss) {
+        echo "Błąd podczas przetwarzania RSS z: $sourceName ($url)\n";
         continue;
     }
 
@@ -48,14 +54,20 @@ foreach ($feeds as $sourceName => $url) {
         }
         $formattedDate = date_format($dateObj, 'Y-m-d H:i:s');
 
+        echo "Dodawanie: $title\n";
+
         $stmt = $conn->prepare("INSERT IGNORE INTO rss_news (source_name, title, link, pub_date) 
         VALUES (?, ?, ?, ?)");
         $stmt->bind_param("ssss", $sourceName, $title, $link, $formattedDate);
         $stmt->execute();
+
+        echo "Dodano: $title\n";
         
         $count++;
     }
 }
+
+echo "Import zakończony. Usuwanie starych wpisów...\n";
 
 // Żeby tabela nie rosła w nieskończoność, usuń wpisy starsze niż 30 dni
 $conn->query("DELETE FROM rss_news WHERE pub_date < NOW() - INTERVAL 30 DAY");
